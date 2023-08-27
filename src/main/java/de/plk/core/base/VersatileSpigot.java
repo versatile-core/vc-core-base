@@ -1,6 +1,6 @@
 package de.plk.core.base;
 
-import de.plk.core.api.AbstractSpicySpigot;
+import de.plk.core.api.AbstractVersatileSpigot;
 import de.plk.core.api.plugin.IInstance;
 import de.plk.core.api.plugin.IPluginCore;
 import de.plk.core.base.plugin.PluginCore;
@@ -14,7 +14,7 @@ import java.util.Map;
  * @since 06.08.2023 13:14
  * Copyright © 2023 | SoftwareBuilds | All rights reserved.
  */
-public class SpicySpigot extends AbstractSpicySpigot implements IInstance<JavaPlugin> {
+public class VersatileSpigot extends AbstractVersatileSpigot implements IInstance<JavaPlugin> {
 
     /**
      * All plugin instances.

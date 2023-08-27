@@ -1,6 +1,6 @@
 package de.plk.core.base;
 
-import de.plk.core.api.AbstractSpicyProxy;
+import de.plk.core.api.AbstractVersatileProxy;
 import de.plk.core.api.plugin.IInstance;
 import de.plk.core.api.plugin.IPluginCore;
 import de.plk.core.base.plugin.PluginCore;
@@ -14,7 +14,7 @@ import java.util.Map;
  * @since 06.08.2023 01:00
  * Copyright © 2023 | SoftwareBuilds | All rights reserved.
  */
-public final class SpicyProxy extends AbstractSpicyProxy implements IInstance<Plugin> {
+public final class VersatileProxy extends AbstractVersatileProxy implements IInstance<Plugin> {
 
     /**
      * All plugin instances.

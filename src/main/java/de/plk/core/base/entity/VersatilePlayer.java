@@ -3,7 +3,7 @@ package de.plk.core.base.entity;
 import de.plk.core.api.database.meta.Column;
 import de.plk.core.api.database.meta.Table;
 import de.plk.core.api.database.meta.type.DataType;
-import de.plk.core.api.entity.ISpicyPlayer;
+import de.plk.core.api.entity.IVersatilePlayer;
 import de.plk.core.api.language.ILanguage;
 import de.plk.core.api.spigot.skin.ISkin;
 
@@ -13,7 +13,7 @@ import de.plk.core.api.spigot.skin.ISkin;
  * Copyright © 2023 | SoftwareBuilds | All rights reserved.
  */
 @Table(name = "spicy_players")
-public class SpicyPlayer<T> implements ISpicyPlayer<T> {
+public class VersatilePlayer<T> implements IVersatilePlayer<T> {
 
     /**
      * The game player.
@@ -49,7 +49,7 @@ public class SpicyPlayer<T> implements ISpicyPlayer<T> {
      *
      * @param player The game player.
      */
-    public SpicyPlayer(T player) {
+    public VersatilePlayer(T player) {
         this.player = player;
     }
 
