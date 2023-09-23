@@ -2,6 +2,7 @@ package de.plk.core.base.database.query;
 
 import de.plk.core.api.database.IModel;
 import de.plk.core.api.database.meta.Column;
+import de.plk.core.api.database.meta.IModelInformation;
 import de.plk.core.api.database.meta.Relation;
 import de.plk.core.api.database.query.CommandType;
 import de.plk.core.api.database.query.IQuery;
@@ -43,7 +44,7 @@ public class QueryBuilder<M extends IModel> implements IQueryBuilder<M> {
      */
     @Override
     public <V> IQueryBuilder<M> orWhere(Column column, Operand operand, V needle) {
-        query.getAdaptiveWheres().add(new WhereCondition<>(column, operand, needle));
+        query.getAdaptiveOrWheres().add(new WhereCondition<>(column, operand, needle));
         return this;
     }
 
@@ -52,7 +53,7 @@ public class QueryBuilder<M extends IModel> implements IQueryBuilder<M> {
      */
     @Override
     public <V> IQueryBuilder<M> andWhere(Column column, Operand operand, V needle) {
-        query.getAdaptiveWheres().add(new WhereCondition<>(column, operand, needle));
+        query.getAdaptiveAndWheres().add(new WhereCondition<>(column, operand, needle));
         return this;
     }
 
@@ -60,15 +61,15 @@ public class QueryBuilder<M extends IModel> implements IQueryBuilder<M> {
      * {@inheritDoc}
      */
     @Override
-    public <O extends IModel> IQueryBuilder<M> getRelatedModel(IQueryBuilder<O> queryBuilder, Relation relation) {
-        /*IQuery<M> sourceModelQuery = build();
+    public <O extends IModel> O getRelatedModel(Relation relation) {
+        IQuery<M> sourceModelQuery = build();
         sourceModelQuery.execute();
 
         IModelInformation modelInformation = M.getModelInformation(sourceModelQuery.getResult().getClass());
 
-        queryBuilder.where(relation.foreignColumn(), Operand.EQUAL, modelInformation.getFieldFromRelation().)
-*/
-        return this;
+        // queryBuilder.where(relation.foreignColumn(), Operand.EQUAL, modelInformation.getFieldFromRelation().)
+
+        return null;
     }
 
     /**

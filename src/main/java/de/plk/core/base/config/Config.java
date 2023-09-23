@@ -54,7 +54,7 @@ public class Config<T> extends HashMap<String, T> implements IConfig<T> {
     @Override
     public IConfig<T> disappear(String key) {
         if (containsKey(key))
-            disappear(key);
+            remove(key);
 
         return this;
     }

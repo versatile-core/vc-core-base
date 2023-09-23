@@ -7,6 +7,8 @@ import de.plk.core.api.utils.IManager;
 import de.plk.core.base.database.meta.WhereCondition;
 import de.plk.core.base.utils.Manager;
 
+import java.util.Set;
+
 /**
  * @author SoftwareBuilds
  * @since 10.08.2023 11:36
@@ -24,10 +26,17 @@ public class Query<M extends IModel> implements IQuery<M> {
      */
     private WhereCondition whereCondition;
 
+    private Set<IModel> relatedModels;
+
     /**
-     * The other adaptive conditions.
+     * The other or adaptive conditions.
      */
-    private final IManager<WhereCondition> adaptiveWheres = new Manager<>();
+    private final IManager<WhereCondition> adaptiveOrWheres = new Manager<>();
+
+    /**
+     * The other and adaptive conditions.
+     */
+    private final IManager<WhereCondition> adaptiveAndWheres = new Manager<>();
 
     /**
      * {@inheritDoc}
@@ -47,12 +56,21 @@ public class Query<M extends IModel> implements IQuery<M> {
     }
 
     /**
-     * Get all adaptive where conditions.
+     * Get all or adaptive where conditions.
      *
-     * @return The adaptive where conditions.
+     * @return The or adaptive where conditions.
      */
-    public IManager<WhereCondition> getAdaptiveWheres() {
-        return adaptiveWheres;
+    public IManager<WhereCondition> getAdaptiveOrWheres() {
+        return adaptiveOrWheres;
+    }
+
+    /**
+     * Get all and adaptive where conditions.
+     *
+     * @return The and adaptive where conditions.
+     */
+    public IManager<WhereCondition> getAdaptiveAndWheres() {
+        return adaptiveAndWheres;
     }
 
     /**
@@ -93,5 +111,14 @@ public class Query<M extends IModel> implements IQuery<M> {
     @Override
     public M getResult() {
         return null;
+    }
+
+    public void addRelatedModel(IModel model) {
+        relatedModels.add(model);
+    }
+
+    @Override
+    public Set<IModel> loadRelatedContent() {
+        return relatedModels;
     }
 }
