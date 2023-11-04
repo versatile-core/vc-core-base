@@ -1,13 +1,14 @@
 package de.plk.core.base.database.query;
 
 import de.plk.core.api.database.IModel;
+import de.plk.core.api.database.meta.IModelInformation;
 import de.plk.core.api.database.query.CommandType;
 import de.plk.core.api.database.query.IQuery;
+import de.plk.core.api.database.query.IQueryBuilder;
 import de.plk.core.api.utils.IManager;
 import de.plk.core.base.database.meta.WhereCondition;
+import de.plk.core.base.entity.VersatilePlayer;
 import de.plk.core.base.utils.Manager;
-
-import java.util.Set;
 
 /**
  * @author SoftwareBuilds
@@ -25,8 +26,6 @@ public class Query<M extends IModel> implements IQuery<M> {
      * The where condition.
      */
     private WhereCondition whereCondition;
-
-    private Set<IModel> relatedModels;
 
     /**
      * The other or adaptive conditions.
@@ -78,6 +77,29 @@ public class Query<M extends IModel> implements IQuery<M> {
      */
     @Override
     public String getCommand() {
+        IModelInformation modelInformation = M.getModelInformation(VersatilePlayer.class);
+        modelInformation.getRelations().forEach(relation -> {
+            switch (relation.relationType()) {
+                case MANY_TO_MANY -> {
+
+                }
+
+                case ONE_TO_MANY -> {
+                    IQuery<IModel> query = new QueryBuilder<>().setCommandType(CommandType.SELECT).where(relation.foreignColumn(), IQueryBuilder.Operand.EQUAL, relation.foreignColumn()).build();
+                    query.execute();
+
+                    IModel model = query.getResult();
+
+                    if (modelInformation.getFieldFromRelation(relation).getClass().equals(model.getClass())) {
+                        
+                    }
+                }
+
+                case ONE_TO_ONE -> {
+
+                }
+            }
+        });
         return null;
     }
 
@@ -113,12 +135,4 @@ public class Query<M extends IModel> implements IQuery<M> {
         return null;
     }
 
-    public void addRelatedModel(IModel model) {
-        relatedModels.add(model);
-    }
-
-    @Override
-    public Set<IModel> loadRelatedContent() {
-        return relatedModels;
-    }
 }

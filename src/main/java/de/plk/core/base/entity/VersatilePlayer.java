@@ -1,6 +1,7 @@
 package de.plk.core.base.entity;
 
 import de.plk.core.api.database.meta.Column;
+import de.plk.core.api.database.meta.Relation;
 import de.plk.core.api.database.meta.Table;
 import de.plk.core.api.database.meta.type.DataType;
 import de.plk.core.api.entity.IVersatilePlayer;
@@ -12,7 +13,7 @@ import de.plk.core.api.spigot.skin.ISkin;
  * @since 06.08.2023 01:19
  * Copyright © 2023 | SoftwareBuilds | All rights reserved.
  */
-@Table(name = "spicy_players")
+@Table(name = "versatile_players")
 public class VersatilePlayer<T> implements IVersatilePlayer<T> {
 
     /**
@@ -43,6 +44,16 @@ public class VersatilePlayer<T> implements IVersatilePlayer<T> {
             foreign = true
     )
     private ISkin skin;
+
+    @Relation(
+            foreignColumn = @Column(
+                    name = "group",
+                    dataType = DataType.VARCHAR
+            ),
+            foreignModel = VersatilePlayer.class,
+            relationType = Relation.RelationType.ONE_TO_MANY
+    )
+    private VersatileGroup group;
 
     /**
      * Construct a game player.
