@@ -1,6 +1,5 @@
 package de.plk.core.base.spigot.task;
 
-import de.plk.core.api.task.ITask;
 import de.plk.core.api.task.ITaskIdentifier;
 import de.plk.core.api.task.ITaskManager;
 import de.plk.core.api.task.TaskByIdFilter;
