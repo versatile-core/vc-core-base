@@ -9,12 +9,16 @@ import de.plk.core.api.plugin.IPluginCore;
 import de.plk.core.api.spigot.board.IScoreboardManager;
 import de.plk.core.api.spigot.game.IGame;
 import de.plk.core.api.spigot.inventory.IInventoryManager;
+import de.plk.core.api.task.ITaskManager;
 import de.plk.core.api.utils.IManager;
+import de.plk.core.base.VersatileSpigot;
 import de.plk.core.base.command.CommandManager;
 import de.plk.core.base.config.ConfigManager;
+import de.plk.core.base.entity.VersatilePlayer;
 import de.plk.core.base.log.Logger;
 import de.plk.core.base.spigot.board.ScoreboardManager;
 import de.plk.core.base.spigot.inventory.InventoryManager;
+import de.plk.core.base.spigot.task.TaskManager;
 import de.plk.core.base.utils.Manager;
 
 /**
@@ -23,6 +27,8 @@ import de.plk.core.base.utils.Manager;
  * Copyright © 2023 | SoftwareBuilds | All rights reserved.
  */
 public class PluginCore<P> implements IPluginCore {
+
+    private final P plugin;
 
     /**
      * The command manager.
@@ -57,9 +63,10 @@ public class PluginCore<P> implements IPluginCore {
     /**
      * Construct the plugin core.
      *
-     * @param plugin The instance of sub plugin.
+     * @param plugin  The instance of sub plugin.
      */
     public PluginCore(P plugin) {
+        this.plugin = plugin;
         this.commandManager = new CommandManager<>();
         this.scoreboardManager = new ScoreboardManager();
         this.languageManager = new Manager<>();
@@ -131,4 +138,24 @@ public class PluginCore<P> implements IPluginCore {
         return new ConfigManager<>();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ITaskManager getTaskManager() {
+        if (plugin instanceof VersatileSpigot) {
+            return new TaskManager((VersatileSpigot) plugin);
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the plugin instance.
+     *
+     * @return The plugin instance.
+     */
+    public P getPlugin() {
+        return plugin;
+    }
 }
