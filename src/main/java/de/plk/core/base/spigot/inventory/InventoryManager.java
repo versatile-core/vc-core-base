@@ -29,9 +29,7 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      */
     @Override
     public void openInventory(Player player, IInventory inventory) {
-        if (activeInventories.containsKey(player))
-            activeInventories.remove(player);
-
+        activeInventories.remove(player);
         activeInventories.put(player, inventory);
 
         Block block = player.getLocation().getBlock();
@@ -44,9 +42,7 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      */
     @Override
     public void updateInventory(Player player, IInventory inventory) {
-        if (activeInventories.containsKey(player))
-            activeInventories.remove(player);
-
+        activeInventories.remove(player);
         activeInventories.put(player, inventory);
 
         player.openInventory(buildSpigotInventory(inventory));
@@ -62,8 +58,7 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      */
     @Override
     public void closeInventory(Player player) {
-        if (activeInventories.containsKey(player))
-            activeInventories.remove(player);
+        activeInventories.remove(player);
 
         player.closeInventory();
     }
@@ -87,9 +82,7 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
         if (inventory.getInventoryContents().size() > spigotInventory.getSize())
             throw new RuntimeException("Du hast mehr items, als wie dein Inventar groß ist.");
 
-        inventory.getInventoryContents().forEach((slot, item) -> {
-            spigotInventory.setItem(slot, item.getItemStack());
-        });
+        inventory.getInventoryContents().forEach((slot, item) -> spigotInventory.setItem(slot, item.getItemStack()));
 
         return spigotInventory;
     }

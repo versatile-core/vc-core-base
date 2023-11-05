@@ -64,6 +64,6 @@ public class Config<T> extends HashMap<String, T> implements IConfig<T> {
      */
     @Override
     public void clear() {
-        clear();
+        getContent().clear();
     }
 }

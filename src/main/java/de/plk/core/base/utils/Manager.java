@@ -1,7 +1,6 @@
 package de.plk.core.base.utils;
 
 import de.plk.core.api.config.IConfig;
-import de.plk.core.api.spigot.board.team.IScoreboardTeam;
 import de.plk.core.api.utils.IManager;
 
 import java.util.HashSet;
@@ -66,7 +65,7 @@ public class Manager<E> implements IManager<E> {
     @Override
     public E getFirstByFilter(Predicate<E> filter) {
         Optional<E> element = getByFilter(filter).findFirst();
-        return element.orElseGet(() -> element.orElseThrow(() -> new NullPointerException("Element not found!")));
+        return element.orElseThrow(() -> new NullPointerException("Element not found!"));
     }
 
     /**

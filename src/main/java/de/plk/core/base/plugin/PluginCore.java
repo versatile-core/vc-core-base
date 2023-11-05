@@ -14,7 +14,6 @@ import de.plk.core.api.utils.IManager;
 import de.plk.core.base.VersatileSpigot;
 import de.plk.core.base.command.CommandManager;
 import de.plk.core.base.config.ConfigManager;
-import de.plk.core.base.entity.VersatilePlayer;
 import de.plk.core.base.log.Logger;
 import de.plk.core.base.spigot.board.ScoreboardManager;
 import de.plk.core.base.spigot.inventory.InventoryManager;

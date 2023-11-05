@@ -45,14 +45,6 @@ public class DelayedTask extends AbstractTask<Runnable> implements IDelayedTask 
      * {@inheritDoc}
      */
     @Override
-    public void taskExecutionContent(Runnable runnable) {
-        this.runnable = runnable;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void start() {
         task = BUKKIT_SCHEDULER.runTaskLaterAsynchronously(pluginCore, runnable, delayedTicks);
     }

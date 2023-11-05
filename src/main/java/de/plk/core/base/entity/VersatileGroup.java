@@ -2,12 +2,8 @@ package de.plk.core.base.entity;
 
 import de.plk.core.api.database.IModel;
 import de.plk.core.api.database.meta.Column;
-import de.plk.core.api.database.meta.Relation;
 import de.plk.core.api.database.meta.Table;
 import de.plk.core.api.database.meta.type.DataType;
-import de.plk.core.api.entity.IVersatilePlayer;
-import de.plk.core.api.language.ILanguage;
-import de.plk.core.api.spigot.skin.ISkin;
 
 import java.util.List;
 
@@ -23,7 +19,7 @@ public class VersatileGroup implements IModel {
      * The game player.
      */
     @Column(
-            name = "groupIdentfier",
+            name = "groupIdentifier",
             dataType = DataType.VARCHAR,
             primary = true
     )

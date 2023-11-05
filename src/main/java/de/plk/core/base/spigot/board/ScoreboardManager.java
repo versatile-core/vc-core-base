@@ -36,9 +36,7 @@ public class ScoreboardManager extends Manager<IScoreboard> implements IScoreboa
     @Override
     public void updateScoreboard(Player player, IScoreboard scoreboard) {
         scoreboard.getRows().entrySet().stream()
-                .filter((e) -> e.getValue() instanceof IScoreboardTeam).forEach((team) -> {
-            buildTeam((IScoreboardTeam) team.getValue(), player.getScoreboard());
-        });
+                .filter((e) -> e.getValue() instanceof IScoreboardTeam).forEach((team) -> buildTeam((IScoreboardTeam) team.getValue(), player.getScoreboard()));
     }
 
     /**

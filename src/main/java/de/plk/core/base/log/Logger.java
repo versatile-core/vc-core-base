@@ -27,6 +27,6 @@ public class Logger implements ILogger {
      */
     @Override
     public void log(LogType type, String message) {
-        System.out.println(String.format("[%s][%s] > %s", channel, type.name(), message));
+        System.out.printf("[%s][%s] > %s%n", channel, type.name(), message);
     }
 }

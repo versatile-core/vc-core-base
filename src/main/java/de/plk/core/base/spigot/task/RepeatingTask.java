@@ -83,7 +83,7 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
 
             @Override
             public int currentCounter() {
-                return 0;
+                return counter;
             }
 
             @Override
@@ -116,17 +116,7 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
      * {@inheritDoc}
      */
     @Override
-    public void taskExecutionContent(IRepeatingRunnable runnable) {
-        this.runnable = runnable;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void start() {
-        task = BUKKIT_SCHEDULER.runTaskTimerAsynchronously(pluginCore, () -> {
-            runnable.run(repeatCounter);
-        }, delayedTicks, repeatingTicks);
+        task = BUKKIT_SCHEDULER.runTaskTimerAsynchronously(pluginCore, () -> runnable.run(repeatCounter), delayedTicks, repeatingTicks);
     }
 }
