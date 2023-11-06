@@ -1,5 +1,6 @@
 package de.plk.core.base.spigot.task;
 
+import de.plk.core.api.AbstractVersatileSpigot;
 import de.plk.core.api.task.ITaskIdentifier;
 import de.plk.core.api.task.ITaskManager;
 import de.plk.core.api.task.TaskByIdFilter;
@@ -19,14 +20,14 @@ public class TaskManager extends Manager<ITaskIdentifier> implements ITaskManage
     /**
      * The spigot plugin instance.
      */
-    private final VersatileSpigot pluginCore;
+    private final AbstractVersatileSpigot pluginCore;
 
     /**
      * Defines the manager for bukkit/ spigot tasks.
      *
      * @param pluginCore The spigot core.
      */
-    public TaskManager(VersatileSpigot pluginCore) {
+    public TaskManager(AbstractVersatileSpigot pluginCore) {
         this.pluginCore = pluginCore;
     }
 

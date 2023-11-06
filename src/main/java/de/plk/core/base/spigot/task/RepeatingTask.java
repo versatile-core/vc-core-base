@@ -1,9 +1,9 @@
 package de.plk.core.base.spigot.task;
 
+import de.plk.core.api.AbstractVersatileSpigot;
 import de.plk.core.api.task.repeat.IRepeatCounter;
 import de.plk.core.api.task.repeat.IRepeatingRunnable;
 import de.plk.core.api.task.repeat.IRepeatingTask;
-import de.plk.core.base.VersatileSpigot;
 
 /**
  * @author SoftwareBuilds
@@ -33,7 +33,7 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
      * @param pluginCore The spigot core.
      * @param taskName The task name.
      */
-    public RepeatingTask(VersatileSpigot pluginCore, String taskName) {
+    public RepeatingTask(AbstractVersatileSpigot pluginCore, String taskName) {
         super(pluginCore, taskName);
     }
 
@@ -81,21 +81,33 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
              */
             private int counter;
 
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public int currentCounter() {
                 return counter;
             }
 
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public void setCurrentCounter(int counter) {
                 this.counter = counter;
             }
 
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public void increment(int amount) {
                 this.counter += amount;
             }
 
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public void decrement(int amount) {
                 this.counter -= amount;

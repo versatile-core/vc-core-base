@@ -65,7 +65,7 @@ public class Manager<E> implements IManager<E> {
     @Override
     public E getFirstByFilter(Predicate<E> filter) {
         Optional<E> element = getByFilter(filter).findFirst();
-        return element.orElseThrow(() -> new NullPointerException("Element not found!"));
+        return element.orElse(null);
     }
 
     /**

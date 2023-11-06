@@ -32,8 +32,6 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
         activeInventories.remove(player);
         activeInventories.put(player, inventory);
 
-        Block block = player.getLocation().getBlock();
-
         player.openInventory(buildSpigotInventory(inventory));
     }
 
@@ -59,8 +57,6 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
     @Override
     public void closeInventory(Player player) {
         activeInventories.remove(player);
-
-        player.closeInventory();
     }
 
     /**
@@ -72,7 +68,7 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      */
     private static Inventory buildSpigotInventory(IInventory inventory) {
         if (inventory.getInventorySize() % 9 != 0 || inventory.getInventorySize() > 9*5) {
-            throw new RuntimeException("Das inventar ist zu groß oder nicht durch neun teilbar.");
+            throw new RuntimeException("Das Inventar ist zu groß oder nicht durch neun teilbar.");
         }
 
         Inventory spigotInventory = Bukkit.createInventory(

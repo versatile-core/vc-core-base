@@ -1,5 +1,6 @@
 package de.plk.core.base.plugin;
 
+import de.plk.core.api.AbstractVersatileSpigot;
 import de.plk.core.api.command.ICommandManager;
 import de.plk.core.api.config.IConfigManager;
 import de.plk.core.api.database.IDatabaseManager;
@@ -27,6 +28,9 @@ import de.plk.core.base.utils.Manager;
  */
 public class PluginCore<P> implements IPluginCore {
 
+    /**
+     * The plugin instance.
+     */
     private final P plugin;
 
     /**
@@ -142,8 +146,8 @@ public class PluginCore<P> implements IPluginCore {
      */
     @Override
     public ITaskManager getTaskManager() {
-        if (plugin instanceof VersatileSpigot) {
-            return new TaskManager((VersatileSpigot) plugin);
+        if (plugin instanceof AbstractVersatileSpigot) {
+            return new TaskManager((AbstractVersatileSpigot) plugin);
         }
 
         return null;

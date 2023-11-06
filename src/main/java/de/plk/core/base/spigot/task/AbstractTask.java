@@ -1,7 +1,7 @@
 package de.plk.core.base.spigot.task;
 
+import de.plk.core.api.AbstractVersatileSpigot;
 import de.plk.core.api.task.ITask;
-import de.plk.core.base.VersatileSpigot;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
@@ -21,7 +21,7 @@ public abstract class AbstractTask<T> implements ITask<T> {
     /**
      * The spigot plugin instance.
      */
-    protected final VersatileSpigot pluginCore;
+    protected final AbstractVersatileSpigot pluginCore;
 
     /**
      * The task name.
@@ -44,7 +44,7 @@ public abstract class AbstractTask<T> implements ITask<T> {
      * @param pluginCore The spigot plugin instance.
      * @param taskName The task name.
      */
-    public AbstractTask(VersatileSpigot pluginCore, String taskName) {
+    public AbstractTask(AbstractVersatileSpigot pluginCore, String taskName) {
         this.pluginCore = pluginCore;
         this.taskName = taskName;
     }
