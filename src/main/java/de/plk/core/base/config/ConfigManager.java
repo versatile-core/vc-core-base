@@ -40,8 +40,6 @@ public class ConfigManager<T> implements IConfigManager<T> {
      */
     @Override
     public boolean saveConfiguration(IConfig<T> config, File file) {
-        boolean savedSuccessfully = false;
-
         if (!file.exists()) {
             try {
                 file.getParentFile().mkdirs();
