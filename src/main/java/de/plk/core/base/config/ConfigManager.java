@@ -40,26 +40,30 @@ public class ConfigManager<T> implements IConfigManager<T> {
      */
     @Override
     public boolean saveConfiguration(IConfig<T> config, File file) {
+        boolean savedSuccessfully = false;
+
         if (!file.exists()) {
             try {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (IOException exception) {
+                throw new RuntimeException(exception);
             }
         }
 
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(GSON.toJson(config));
             writer.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+            return true;
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
         }
-        return false;
     }
 
     @Override
     public IConfig<T> createConfig() {
         return new Config<>();
     }
+
 }

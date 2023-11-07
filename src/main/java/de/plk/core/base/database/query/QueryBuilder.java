@@ -62,4 +62,5 @@ public class QueryBuilder<M extends IModel> implements IQueryBuilder<M> {
     public IQuery<M> build() {
         return query;
     }
+
 }

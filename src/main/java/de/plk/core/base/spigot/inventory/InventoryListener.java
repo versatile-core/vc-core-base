@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.Map;
 
@@ -41,7 +42,8 @@ public class InventoryListener implements Listener {
     public void handle(InventoryClickEvent event) {
         if (event.getCurrentItem() == null) return;
 
-        inventoryManager.getAll().forEach(inventory -> {
+        // Lookup at all inventories.
+        inventoryManager.getAllActiveInventories().values().forEach(inventory -> {
 
             if (inventory.fullUnclickable()) {
                 event.setCancelled(true);
@@ -61,9 +63,20 @@ public class InventoryListener implements Listener {
      * @param event The close event.
      */
     @EventHandler
+    public void handle(PlayerQuitEvent event) {
+        inventoryManager.closeInventory(event.getPlayer());
+    }
+
+    /**
+     * The close event listed to the inventory listener.
+     *
+     * @param event The close event.
+     */
+    @EventHandler
     public void handle(InventoryCloseEvent event) {
         if (event.getPlayer() instanceof Player) {
             inventoryManager.closeInventory((Player) event.getPlayer());
         }
     }
+
 }

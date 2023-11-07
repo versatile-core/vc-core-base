@@ -34,11 +34,20 @@ public class VersatileGroup implements IModel {
     )
     private final List<VersatilePlayer> members;
 
+    /**
+     * Create the versatile group model.
+     */
     public VersatileGroup(List<VersatilePlayer> members) {
         this.members = members;
     }
 
+    /**
+     * Get the members of the group.
+     *
+     * @return The member of the group.
+     */
     public List<VersatilePlayer> getMembers() {
         return members;
     }
+
 }

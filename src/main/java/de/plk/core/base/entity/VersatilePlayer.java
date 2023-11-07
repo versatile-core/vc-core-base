@@ -45,6 +45,9 @@ public class VersatilePlayer<T> implements IVersatilePlayer<T> {
     )
     private ISkin skin;
 
+    /**
+     * The group the player is in.
+     */
     @Relation(
             foreignColumn = @Column(
                     name = "group",
@@ -103,4 +106,5 @@ public class VersatilePlayer<T> implements IVersatilePlayer<T> {
     public void setSkin(ISkin skin) {
         this.skin = skin;
     }
+    
 }

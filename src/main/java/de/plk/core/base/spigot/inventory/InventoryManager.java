@@ -4,7 +4,6 @@ import de.plk.core.api.spigot.inventory.IInventory;
 import de.plk.core.api.spigot.inventory.IInventoryManager;
 import de.plk.core.base.utils.Manager;
 import org.bukkit.Bukkit;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
@@ -55,6 +54,14 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      * {@inheritDoc}
      */
     @Override
+    public Map<Player, IInventory> getAllActiveInventories() {
+        return activeInventories;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void closeInventory(Player player) {
         activeInventories.remove(player);
     }
@@ -71,6 +78,7 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
             throw new RuntimeException("Das Inventar ist zu groß oder nicht durch neun teilbar.");
         }
 
+        // Create spigot inventory base.
         Inventory spigotInventory = Bukkit.createInventory(
                 null, inventory.getInventorySize(), inventory.getInventoryTitle()
         );
@@ -78,8 +86,10 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
         if (inventory.getInventoryContents().size() > spigotInventory.getSize())
             throw new RuntimeException("Du hast mehr items, als wie dein Inventar groß ist.");
 
+        // Set items to the inventory.
         inventory.getInventoryContents().forEach((slot, item) -> spigotInventory.setItem(slot, item.getItemStack()));
 
         return spigotInventory;
     }
+
 }

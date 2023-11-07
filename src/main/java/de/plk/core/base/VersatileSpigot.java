@@ -42,7 +42,9 @@ public class VersatileSpigot extends AbstractVersatileSpigot implements IInstanc
      */
     @Override
     public IPluginCore createPluginCore(JavaPlugin plugin) {
-        if (instances.containsKey(plugin)) return instances.get(plugin);
+        if (instances.containsKey(plugin)) {
+            return instances.get(plugin);
+        }
 
         IPluginCore pluginCore = new PluginCore<>(plugin);
 

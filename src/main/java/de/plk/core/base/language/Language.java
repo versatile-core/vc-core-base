@@ -49,4 +49,5 @@ public class Language implements ILanguage {
     public IManager<IMessage> getMessageManager() {
         return messageManager;
     }
+
 }

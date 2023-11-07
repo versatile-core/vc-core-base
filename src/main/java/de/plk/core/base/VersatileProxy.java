@@ -42,7 +42,9 @@ public final class VersatileProxy extends AbstractVersatileProxy implements IIns
      */
     @Override
     public IPluginCore createPluginCore(Plugin plugin) {
-        if (instances.containsKey(plugin)) return instances.get(plugin);
+        if (instances.containsKey(plugin)) {
+            return instances.get(plugin);
+        }
 
         IPluginCore pluginCore = new PluginCore<>(plugin);
 
@@ -50,4 +52,5 @@ public final class VersatileProxy extends AbstractVersatileProxy implements IIns
 
         return pluginCore;
     }
+
 }

@@ -29,4 +29,5 @@ public class Logger implements ILogger {
     public void log(LogType type, String message) {
         System.out.printf("[%s][%s] > %s%n", channel, type.name(), message);
     }
+
 }

@@ -46,4 +46,5 @@ public class WhereCondition<V> {
     public String getConditionCommand() {
         return String.format("WHERE %s %s %s", column.name(), operand.name(), needle);
     }
+
 }

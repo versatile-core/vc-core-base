@@ -17,4 +17,5 @@ public class CommandManager<P> extends Manager<AbstractCommand> implements IComm
     public void registerAllCommands() {
         getAll().forEach(AbstractCommand::register);
     }
+
 }

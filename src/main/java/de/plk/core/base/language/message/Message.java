@@ -25,6 +25,7 @@ public record Message(
      */
     @Override
     public String getMessage() {
-        return null;
+        return message;
     }
+
 }

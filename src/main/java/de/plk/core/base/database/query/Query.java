@@ -78,28 +78,11 @@ public class Query<M extends IModel> implements IQuery<M> {
     @Override
     public String getCommand() {
         IModelInformation modelInformation = M.getModelInformation(VersatilePlayer.class);
+
         modelInformation.getRelations().forEach(relation -> {
-            switch (relation.relationType()) {
-                case MANY_TO_MANY -> {
-
-                }
-
-                case ONE_TO_MANY -> {
-                    IQuery<IModel> query = new QueryBuilder<>().setCommandType(CommandType.SELECT).where(relation.foreignColumn(), IQueryBuilder.Operand.EQUAL, relation.foreignColumn()).build();
-                    query.execute();
-
-                    IModel model = query.getResult();
-
-                    if (modelInformation.getFieldFromRelation(relation).getClass().equals(model.getClass())) {
-                        
-                    }
-                }
-
-                case ONE_TO_ONE -> {
-
-                }
-            }
+            // TODO: Load related things.
         });
+
         return null;
     }
 
@@ -107,7 +90,7 @@ public class Query<M extends IModel> implements IQuery<M> {
      * Execute the query on the database.
      */
     public void execute() {
-
+        // TODO: Execute the sql command.
     }
 
     /**
@@ -132,6 +115,7 @@ public class Query<M extends IModel> implements IQuery<M> {
      */
     @Override
     public M getResult() {
+        // TODO: Return the result.
         return null;
     }
 

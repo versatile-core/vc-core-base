@@ -12,7 +12,6 @@ import de.plk.core.api.spigot.game.IGame;
 import de.plk.core.api.spigot.inventory.IInventoryManager;
 import de.plk.core.api.task.ITaskManager;
 import de.plk.core.api.utils.IManager;
-import de.plk.core.base.VersatileSpigot;
 import de.plk.core.base.command.CommandManager;
 import de.plk.core.base.config.ConfigManager;
 import de.plk.core.base.log.Logger;
@@ -161,4 +160,5 @@ public class PluginCore<P> implements IPluginCore {
     public P getPlugin() {
         return plugin;
     }
+
 }

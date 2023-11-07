@@ -31,7 +31,7 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
      * Defines the repeating task.
      *
      * @param pluginCore The spigot core.
-     * @param taskName The task name.
+     * @param taskName   The task name.
      */
     public RepeatingTask(AbstractVersatileSpigot pluginCore, String taskName) {
         super(pluginCore, taskName);
@@ -112,6 +112,7 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
             public void decrement(int amount) {
                 this.counter -= amount;
             }
+
         };
     }
 
@@ -131,4 +132,5 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
     public void start() {
         task = BUKKIT_SCHEDULER.runTaskTimerAsynchronously(pluginCore, () -> runnable.run(repeatCounter), delayedTicks, repeatingTicks);
     }
+
 }

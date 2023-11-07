@@ -75,4 +75,5 @@ public class Manager<E> implements IManager<E> {
     public Set<E> getAll() {
         return elements;
     }
+
 }

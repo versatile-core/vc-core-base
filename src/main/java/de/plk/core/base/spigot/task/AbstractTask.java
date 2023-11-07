@@ -42,7 +42,7 @@ public abstract class AbstractTask<T> implements ITask<T> {
      * Defines the abstract task.
      *
      * @param pluginCore The spigot plugin instance.
-     * @param taskName The task name.
+     * @param taskName   The task name.
      */
     public AbstractTask(AbstractVersatileSpigot pluginCore, String taskName) {
         this.pluginCore = pluginCore;
@@ -80,4 +80,5 @@ public abstract class AbstractTask<T> implements ITask<T> {
     public void stop() {
         task.cancel();
     }
+
 }

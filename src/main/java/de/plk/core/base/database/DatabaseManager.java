@@ -17,10 +17,21 @@ import java.util.Map;
  */
 public class DatabaseManager implements IDatabaseManager {
 
+    /**
+     * The database configuration.
+     */
     private final IConfig<String> databaseConfig;
 
+    /**
+     * The active database connection.
+     */
     private Connection connection = null;
 
+    /**
+     * Creates a database manager.
+     *
+     * @param databaseConfig The active database config.
+     */
     public DatabaseManager(IConfig<String> databaseConfig) {
         this.databaseConfig = databaseConfig;
     }
@@ -48,8 +59,8 @@ public class DatabaseManager implements IDatabaseManager {
                     config.getOrDefault("username", "root"),
                     config.getOrDefault("password", "")
             );
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -93,8 +104,8 @@ public class DatabaseManager implements IDatabaseManager {
         try {
             connection.close();
             connection = null;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -106,4 +117,5 @@ public class DatabaseManager implements IDatabaseManager {
         query.execute();
         return query.getResult();
     }
+
 }

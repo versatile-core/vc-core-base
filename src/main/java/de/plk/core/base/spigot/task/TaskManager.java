@@ -6,7 +6,6 @@ import de.plk.core.api.task.ITaskManager;
 import de.plk.core.api.task.TaskByIdFilter;
 import de.plk.core.api.task.delayed.IDelayedTask;
 import de.plk.core.api.task.repeat.IRepeatingTask;
-import de.plk.core.base.VersatileSpigot;
 import de.plk.core.base.spigot.task.exception.AlreadyExistsException;
 import de.plk.core.base.utils.Manager;
 
@@ -40,6 +39,7 @@ public class TaskManager extends Manager<ITaskIdentifier> implements ITaskManage
             throw new AlreadyExistsException("The task " + taskName + " is exists already.");
         }
 
+        // Creation of delayed task.
         DelayedTask delayedTask = new DelayedTask(pluginCore, taskName);
         delayedTask.setDelayedTicks(delayedTicks);
 
@@ -57,6 +57,7 @@ public class TaskManager extends Manager<ITaskIdentifier> implements ITaskManage
             throw new AlreadyExistsException("The task " + taskName + " is exists already.");
         }
 
+        // Creation of repeating task.
         RepeatingTask repeatingTask = new RepeatingTask(pluginCore, taskName);
         repeatingTask.setDelayedTicks(delayedTicks);
         repeatingTask.setRepeatingTicks(repeatingTicks);
@@ -65,4 +66,5 @@ public class TaskManager extends Manager<ITaskIdentifier> implements ITaskManage
 
         return repeatingTask;
     }
+
 }

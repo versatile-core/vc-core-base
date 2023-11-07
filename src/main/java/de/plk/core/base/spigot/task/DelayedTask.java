@@ -19,7 +19,7 @@ public class DelayedTask extends AbstractTask<Runnable> implements IDelayedTask 
      * Defines the delayed task.
      *
      * @param pluginCore The spigot core.
-     * @param taskName The task name.
+     * @param taskName   The task name.
      */
     public DelayedTask(AbstractVersatileSpigot pluginCore, String taskName) {
         super(pluginCore, taskName);
@@ -48,4 +48,5 @@ public class DelayedTask extends AbstractTask<Runnable> implements IDelayedTask 
     public void start() {
         task = BUKKIT_SCHEDULER.runTaskLaterAsynchronously(pluginCore, runnable, delayedTicks);
     }
+
 }

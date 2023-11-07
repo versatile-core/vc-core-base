@@ -8,9 +8,12 @@ import de.plk.core.base.utils.Manager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Criteria;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+
+import java.util.Objects;
 
 /**
  * @author SoftwareBuilds
@@ -63,12 +66,16 @@ public class ScoreboardManager extends Manager<IScoreboard> implements IScoreboa
      * @return The built minecraft scoreboard.
      */
     private Scoreboard buildSpigotScoreboard(Player player, IScoreboard scoreboard) {
-        Scoreboard spigotScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-        Objective objective = spigotScoreboard.registerNewObjective("xxx", "yyy");
+        Scoreboard spigotScoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
+
+        Objective objective = spigotScoreboard.registerNewObjective(
+                "xxx", Criteria.DUMMY,
+                scoreboard.getScoreboardTitle()
+        );
 
         objective.setDisplaySlot(scoreboard.getScoreboardType());
-        objective.setDisplayName(scoreboard.getScoreboardTitle());
 
+        // Setting the rows in the scoreboard at specific positions.
         scoreboard.getRows().forEach((position, row) -> {
             if (row instanceof IScoreboardTeam) {
                 objective.getScore(buildTeam((IScoreboardTeam) row, spigotScoreboard).toString()).setScore(position);
@@ -89,8 +96,9 @@ public class ScoreboardManager extends Manager<IScoreboard> implements IScoreboa
     public ChatColor buildTeam(IScoreboardTeam scoreboardTeam, Scoreboard scoreboard) {
         Team team = scoreboard.getTeam(scoreboardTeam.getTeamIdentifier());
 
-        if (team == null)
+        if (team == null) {
             team = scoreboard.registerNewTeam(scoreboardTeam.getTeamIdentifier());
+        }
 
         team.setPrefix(scoreboardTeam.getPrefix() + scoreboardTeam.getValue());
         team.setSuffix(scoreboardTeam.getSuffix());
@@ -99,4 +107,5 @@ public class ScoreboardManager extends Manager<IScoreboard> implements IScoreboa
 
         return scoreboardTeam.getEntry();
     }
+
 }
