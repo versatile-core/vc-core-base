@@ -3,9 +3,9 @@ package de.plk.core.base.utils;
 import de.plk.core.api.config.IConfig;
 import de.plk.core.api.utils.IManager;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -19,7 +19,7 @@ public class Manager<E> implements IManager<E> {
     /**
      * The set of elements.
      */
-    private final Set<E> elements = new HashSet<>();
+    protected final List<E> elements = new CopyOnWriteArrayList<>();
 
     /**
      * Construct a manager with persistent data.
@@ -72,7 +72,7 @@ public class Manager<E> implements IManager<E> {
      * {@inheritDoc}
      */
     @Override
-    public Set<E> getAll() {
+    public List<E> getAll() {
         return elements;
     }
 

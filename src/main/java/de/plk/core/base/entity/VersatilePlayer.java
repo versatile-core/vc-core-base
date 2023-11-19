@@ -1,12 +1,10 @@
 package de.plk.core.base.entity;
 
 import de.plk.core.api.database.meta.Column;
-import de.plk.core.api.database.meta.Relation;
 import de.plk.core.api.database.meta.Table;
 import de.plk.core.api.database.meta.type.DataType;
 import de.plk.core.api.entity.IVersatilePlayer;
 import de.plk.core.api.language.ILanguage;
-import de.plk.core.api.spigot.skin.ISkin;
 
 /**
  * @author SoftwareBuilds
@@ -34,29 +32,6 @@ public class VersatilePlayer<T> implements IVersatilePlayer<T> {
             dataType = DataType.VARCHAR
     )
     private ILanguage language;
-
-    /**
-     * The player skin.
-     */
-    @Column(
-            name = "skin",
-            dataType = DataType.INT,
-            foreign = true
-    )
-    private ISkin skin;
-
-    /**
-     * The group the player is in.
-     */
-    @Relation(
-            foreignColumn = @Column(
-                    name = "group",
-                    dataType = DataType.VARCHAR
-            ),
-            foreignModel = VersatilePlayer.class,
-            relationType = Relation.RelationType.ONE_TO_MANY
-    )
-    private VersatileGroup group;
 
     /**
      * Construct a game player.
@@ -89,22 +64,6 @@ public class VersatilePlayer<T> implements IVersatilePlayer<T> {
     @Override
     public void setLanguage(ILanguage language) {
         this.language = language;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ISkin getSkin() {
-        return skin;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setSkin(ISkin skin) {
-        this.skin = skin;
     }
     
 }

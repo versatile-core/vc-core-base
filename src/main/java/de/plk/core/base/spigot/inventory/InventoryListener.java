@@ -1,5 +1,6 @@
 package de.plk.core.base.spigot.inventory;
 
+import de.plk.core.api.spigot.inventory.IInventory;
 import de.plk.core.api.spigot.inventory.IInventoryManager;
 import de.plk.core.api.spigot.inventory.item.IClickableItem;
 import de.plk.core.api.spigot.inventory.item.IItem;
@@ -11,6 +12,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author SoftwareBuilds
@@ -41,20 +43,24 @@ public class InventoryListener implements Listener {
     @EventHandler
     public void handle(InventoryClickEvent event) {
         if (event.getCurrentItem() == null) return;
+        if (!(event.getWhoClicked() instanceof Player player)) return;
 
-        // Lookup at all inventories.
-        inventoryManager.getAllActiveInventories().values().forEach(inventory -> {
+        Optional<IInventory> inventoryOptional = inventoryManager.getInventoryByPlayer(player);
+
+        if (inventoryOptional.isPresent()) {
+            IInventory inventory = inventoryOptional.get();
 
             if (inventory.fullUnclickable()) {
                 event.setCancelled(true);
             }
 
+            // Iterate the items and accept if it is a clickable one.
             Map<Integer, IItem> contents = inventory.getInventoryContents();
             if (contents.get(event.getSlot()) instanceof IClickableItem) {
                 event.setCancelled(true);
                 ((IClickableItem) contents.get(event.getSlot())).getClickEvent().onClick(event);
             }
-        });
+        }
     }
 
     /**

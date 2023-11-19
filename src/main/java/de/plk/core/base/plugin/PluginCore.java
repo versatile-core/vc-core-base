@@ -1,23 +1,16 @@
 package de.plk.core.base.plugin;
 
-import de.plk.core.api.AbstractVersatileSpigot;
 import de.plk.core.api.command.ICommandManager;
 import de.plk.core.api.config.IConfigManager;
 import de.plk.core.api.database.IDatabaseManager;
 import de.plk.core.api.language.ILanguage;
 import de.plk.core.api.log.ILogger;
 import de.plk.core.api.plugin.IPluginCore;
-import de.plk.core.api.spigot.board.IScoreboardManager;
 import de.plk.core.api.spigot.game.IGame;
-import de.plk.core.api.spigot.inventory.IInventoryManager;
-import de.plk.core.api.task.ITaskManager;
 import de.plk.core.api.utils.IManager;
 import de.plk.core.base.command.CommandManager;
 import de.plk.core.base.config.ConfigManager;
 import de.plk.core.base.log.Logger;
-import de.plk.core.base.spigot.board.ScoreboardManager;
-import de.plk.core.base.spigot.inventory.InventoryManager;
-import de.plk.core.base.spigot.task.TaskManager;
 import de.plk.core.base.utils.Manager;
 
 /**
@@ -43,11 +36,6 @@ public class PluginCore<P> implements IPluginCore {
     private IDatabaseManager databaseManager;
 
     /**
-     * The scoreboard manager.
-     */
-    private final IScoreboardManager scoreboardManager;
-
-    /**
      * The language manager.
      */
     private final IManager<ILanguage> languageManager;
@@ -58,11 +46,6 @@ public class PluginCore<P> implements IPluginCore {
     private final IManager<IGame> gameManager;
 
     /**
-     * The inventory manager.
-     */
-    private final InventoryManager inventoryManager;
-
-    /**
      * Construct the plugin core.
      *
      * @param plugin  The instance of sub plugin.
@@ -70,10 +53,8 @@ public class PluginCore<P> implements IPluginCore {
     public PluginCore(P plugin) {
         this.plugin = plugin;
         this.commandManager = new CommandManager<>();
-        this.scoreboardManager = new ScoreboardManager();
         this.languageManager = new Manager<>();
         this.gameManager = new Manager<>();
-        this.inventoryManager = new InventoryManager();
     }
 
     /**
@@ -90,14 +71,6 @@ public class PluginCore<P> implements IPluginCore {
     @Override
     public IDatabaseManager getDatabaseManager() {
         return databaseManager;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public IScoreboardManager getScoreboardManager() {
-        return scoreboardManager;
     }
 
     /**
@@ -128,28 +101,8 @@ public class PluginCore<P> implements IPluginCore {
      * {@inheritDoc}
      */
     @Override
-    public IInventoryManager getInventoryManager() {
-        return inventoryManager;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public <T> IConfigManager<T> getConfigManager() {
         return new ConfigManager<>();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ITaskManager getTaskManager() {
-        if (plugin instanceof AbstractVersatileSpigot) {
-            return new TaskManager((AbstractVersatileSpigot) plugin);
-        }
-
-        return null;
     }
 
     /**

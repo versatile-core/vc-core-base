@@ -15,7 +15,7 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
     /**
      * The repeater counter for the scheduler.
      */
-    private IRepeatCounter repeatCounter;
+    private final IRepeatCounter repeatCounter;
 
     /**
      * The delayed ticks for the scheduler.
@@ -35,6 +35,46 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
      */
     public RepeatingTask(AbstractVersatileSpigot pluginCore, String taskName) {
         super(pluginCore, taskName);
+
+        this.repeatCounter = new IRepeatCounter() {
+
+            /**
+             * The actual repeating counter.
+             */
+            private int counter = 0;
+
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public int currentCounter() {
+                return counter;
+            }
+
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void setCurrentCounter(int counter) {
+                this.counter = counter;
+            }
+
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void increment(int increment) {
+                this.counter += increment;
+            }
+
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void decrement(int decrement) {
+                this.counter -= decrement;
+            }
+        };
     }
 
     /**
@@ -73,56 +113,16 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
      * {@inheritDoc}
      */
     @Override
-    public void createRepeatingCounter() {
-        this.repeatCounter = new IRepeatCounter() {
-
-            /**
-             * The counter.
-             */
-            private int counter;
-
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public int currentCounter() {
-                return counter;
-            }
-
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public void setCurrentCounter(int counter) {
-                this.counter = counter;
-            }
-
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public void increment(int amount) {
-                this.counter += amount;
-            }
-
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public void decrement(int amount) {
-                this.counter -= amount;
-            }
-
-        };
+    public void setRepeatingCounterBegin(int begin) {
+        this.repeatCounter.setCurrentCounter(begin);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void createRepeatingCounter(int begin) {
-        createRepeatingCounter();
-        repeatCounter.setCurrentCounter(begin);
+    public IRepeatCounter getTheRepeatingCounter() {
+        return repeatCounter;
     }
 
     /**

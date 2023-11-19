@@ -3,8 +3,8 @@ package de.plk.core.base.language;
 import de.plk.core.api.config.IConfig;
 import de.plk.core.api.language.ILanguage;
 import de.plk.core.api.language.message.IMessage;
-import de.plk.core.api.utils.IManager;
-import de.plk.core.base.utils.Manager;
+import de.plk.core.api.language.message.IMessageManager;
+import de.plk.core.base.language.message.MessageManager;
 
 /**
  * @author SoftwareBuilds
@@ -16,7 +16,7 @@ public class Language implements ILanguage {
     /**
      * The message manager.
      */
-    private final IManager<IMessage> messageManager;
+    private final IMessageManager messageManager;
 
     /**
      * The language name.
@@ -31,7 +31,7 @@ public class Language implements ILanguage {
      */
     public Language(String name, IConfig<IMessage> messageConfig) {
         this.name = name;
-        this.messageManager = new Manager<>(messageConfig);
+        this.messageManager = new MessageManager();
     }
 
     /**
@@ -46,7 +46,7 @@ public class Language implements ILanguage {
      * {@inheritDoc}
      */
     @Override
-    public IManager<IMessage> getMessageManager() {
+    public IMessageManager getMessageManager() {
         return messageManager;
     }
 

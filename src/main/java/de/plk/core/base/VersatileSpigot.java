@@ -1,9 +1,9 @@
 package de.plk.core.base;
 
 import de.plk.core.api.AbstractVersatileSpigot;
-import de.plk.core.api.plugin.IInstance;
-import de.plk.core.api.plugin.IPluginCore;
-import de.plk.core.base.plugin.PluginCore;
+import de.plk.core.api.plugin.IInstanceSpigot;
+import de.plk.core.api.plugin.ISpigotPluginCore;
+import de.plk.core.base.plugin.SpigotPluginCore;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -14,12 +14,12 @@ import java.util.Map;
  * @since 06.08.2023 13:14
  * Copyright © 2023 | SoftwareBuilds | All rights reserved.
  */
-public class VersatileSpigot extends AbstractVersatileSpigot implements IInstance<JavaPlugin> {
+public class VersatileSpigot extends AbstractVersatileSpigot implements IInstanceSpigot {
 
     /**
      * All plugin instances.
      */
-    private static final Map<JavaPlugin, IPluginCore> instances = new HashMap<>();
+    private static final Map<JavaPlugin, ISpigotPluginCore> instances = new HashMap<>();
 
     /**
      * {@inheritDoc}
@@ -41,12 +41,12 @@ public class VersatileSpigot extends AbstractVersatileSpigot implements IInstanc
      * {@inheritDoc}
      */
     @Override
-    public IPluginCore createPluginCore(JavaPlugin plugin) {
+    public ISpigotPluginCore createPluginCore(AbstractVersatileSpigot plugin) {
         if (instances.containsKey(plugin)) {
             return instances.get(plugin);
         }
 
-        IPluginCore pluginCore = new PluginCore<>(plugin);
+        ISpigotPluginCore pluginCore = new SpigotPluginCore(plugin);
 
         instances.put(plugin, pluginCore);
 
