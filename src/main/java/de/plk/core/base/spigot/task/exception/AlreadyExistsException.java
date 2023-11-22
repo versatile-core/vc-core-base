@@ -1,5 +1,7 @@
 package de.plk.core.base.spigot.task.exception;
 
+import de.plk.core.api.code.NotNull;
+
 /**
  * @author SoftwareBuilds
  * @since 05.11.2023 20:54
@@ -10,7 +12,7 @@ public class AlreadyExistsException extends RuntimeException {
     /**
      * {@inheritDoc}
      */
-    public AlreadyExistsException(String message) {
+    public AlreadyExistsException(@NotNull String message) {
         super(message);
     }
 

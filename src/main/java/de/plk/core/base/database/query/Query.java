@@ -1,14 +1,15 @@
 package de.plk.core.base.database.query;
 
+import de.plk.core.api.code.NotNull;
 import de.plk.core.api.database.IModel;
 import de.plk.core.api.database.meta.IModelInformation;
 import de.plk.core.api.database.query.CommandType;
 import de.plk.core.api.database.query.IQuery;
-import de.plk.core.api.database.query.IQueryBuilder;
-import de.plk.core.api.utils.IManager;
 import de.plk.core.base.database.meta.WhereCondition;
 import de.plk.core.base.entity.VersatilePlayer;
-import de.plk.core.base.utils.Manager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author SoftwareBuilds
@@ -25,17 +26,19 @@ public class Query<M extends IModel> implements IQuery<M> {
     /**
      * The where condition.
      */
-    private WhereCondition whereCondition;
+    private WhereCondition<?> whereCondition;
 
     /**
      * The other or adaptive conditions.
      */
-    private final IManager<WhereCondition> adaptiveOrWheres = new Manager<>();
+    @NotNull
+    private final List<WhereCondition<?>> adaptiveOrWheres = new ArrayList<>();
 
     /**
      * The other and adaptive conditions.
      */
-    private final IManager<WhereCondition> adaptiveAndWheres = new Manager<>();
+    @NotNull
+    private final List<WhereCondition<?>> adaptiveAndWheres = new ArrayList<>();
 
     /**
      * {@inheritDoc}
@@ -50,7 +53,7 @@ public class Query<M extends IModel> implements IQuery<M> {
      *
      * @param commandType The command type.
      */
-    public void setCommandType(CommandType commandType) {
+    public void setCommandType(@NotNull CommandType commandType) {
         this.commandType = commandType;
     }
 
@@ -59,7 +62,7 @@ public class Query<M extends IModel> implements IQuery<M> {
      *
      * @return The or adaptive where conditions.
      */
-    public IManager<WhereCondition> getAdaptiveOrWheres() {
+    public List<WhereCondition<?>> getAdaptiveOrWheres() {
         return adaptiveOrWheres;
     }
 
@@ -68,7 +71,7 @@ public class Query<M extends IModel> implements IQuery<M> {
      *
      * @return The and adaptive where conditions.
      */
-    public IManager<WhereCondition> getAdaptiveAndWheres() {
+    public List<WhereCondition<?>> getAdaptiveAndWheres() {
         return adaptiveAndWheres;
     }
 
@@ -106,7 +109,7 @@ public class Query<M extends IModel> implements IQuery<M> {
      *
      * @param whereCondition The where condition.
      */
-    public void setWhereCondition(WhereCondition whereCondition) {
+    public void setWhereCondition(@NotNull WhereCondition<?> whereCondition) {
         this.whereCondition = whereCondition;
     }
 

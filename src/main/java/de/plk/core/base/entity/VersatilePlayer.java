@@ -1,5 +1,6 @@
 package de.plk.core.base.entity;
 
+import de.plk.core.api.code.NotNull;
 import de.plk.core.api.database.meta.Column;
 import de.plk.core.api.database.meta.Table;
 import de.plk.core.api.database.meta.type.DataType;
@@ -22,6 +23,7 @@ public class VersatilePlayer<T> implements IVersatilePlayer<T> {
             dataType = DataType.VARCHAR,
             primary = true
     )
+    @NotNull
     private final T player;
 
     /**
@@ -31,6 +33,7 @@ public class VersatilePlayer<T> implements IVersatilePlayer<T> {
             name = "language",
             dataType = DataType.VARCHAR
     )
+    @NotNull
     private ILanguage language;
 
     /**
@@ -38,7 +41,7 @@ public class VersatilePlayer<T> implements IVersatilePlayer<T> {
      *
      * @param player The game player.
      */
-    public VersatilePlayer(T player) {
+    public VersatilePlayer(@NotNull T player) {
         this.player = player;
     }
 
@@ -62,7 +65,7 @@ public class VersatilePlayer<T> implements IVersatilePlayer<T> {
      * {@inheritDoc}
      */
     @Override
-    public void setLanguage(ILanguage language) {
+    public void setLanguage(@NotNull ILanguage language) {
         this.language = language;
     }
     

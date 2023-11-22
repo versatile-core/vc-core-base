@@ -1,6 +1,7 @@
 package de.plk.core.base;
 
 import de.plk.core.api.AbstractVersatileProxy;
+import de.plk.core.api.code.NotNull;
 import de.plk.core.api.plugin.IInstanceProxy;
 import de.plk.core.api.plugin.IProxyPluginCore;
 import de.plk.core.base.plugin.ProxyPluginCore;
@@ -19,6 +20,7 @@ public final class VersatileProxy extends AbstractVersatileProxy implements IIns
     /**
      * All plugin instances.
      */
+    @NotNull
     private static final Map<Plugin, IProxyPluginCore> instances = new HashMap<>();
 
     /**
@@ -41,7 +43,7 @@ public final class VersatileProxy extends AbstractVersatileProxy implements IIns
      * {@inheritDoc}
      */
     @Override
-    public IProxyPluginCore createPluginCore(AbstractVersatileProxy plugin) {
+    public IProxyPluginCore createPluginCore(@NotNull AbstractVersatileProxy plugin) {
         if (instances.containsKey(plugin)) {
             return instances.get(plugin);
         }

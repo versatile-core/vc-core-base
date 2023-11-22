@@ -1,6 +1,7 @@
 package de.plk.core.base.spigot.task;
 
 import de.plk.core.api.AbstractVersatileSpigot;
+import de.plk.core.api.code.NotNull;
 import de.plk.core.api.task.repeat.IRepeatCounter;
 import de.plk.core.api.task.repeat.IRepeatingRunnable;
 import de.plk.core.api.task.repeat.IRepeatingTask;
@@ -15,6 +16,7 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
     /**
      * The repeater counter for the scheduler.
      */
+    @NotNull
     private final IRepeatCounter repeatCounter;
 
     /**
@@ -31,10 +33,10 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
      * Defines the repeating task.
      *
      * @param pluginCore The spigot core.
-     * @param taskName   The task name.
+     * @param taskIdentifier The task name.
      */
-    public RepeatingTask(AbstractVersatileSpigot pluginCore, String taskName) {
-        super(pluginCore, taskName);
+    public RepeatingTask(@NotNull AbstractVersatileSpigot pluginCore, @NotNull String taskIdentifier) {
+        super(pluginCore, taskIdentifier);
 
         this.repeatCounter = new IRepeatCounter() {
 

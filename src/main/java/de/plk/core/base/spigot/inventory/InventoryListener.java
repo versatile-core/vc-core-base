@@ -1,5 +1,6 @@
 package de.plk.core.base.spigot.inventory;
 
+import de.plk.core.api.code.NotNull;
 import de.plk.core.api.spigot.inventory.IInventory;
 import de.plk.core.api.spigot.inventory.IInventoryManager;
 import de.plk.core.api.spigot.inventory.item.IClickableItem;
@@ -24,6 +25,7 @@ public class InventoryListener implements Listener {
     /**
      * The inventory manager.
      */
+    @NotNull
     private final IInventoryManager inventoryManager;
 
     /**
@@ -31,7 +33,7 @@ public class InventoryListener implements Listener {
      *
      * @param inventoryManager The inventory manager.
      */
-    public InventoryListener(IInventoryManager inventoryManager) {
+    public InventoryListener(@NotNull IInventoryManager inventoryManager) {
         this.inventoryManager = inventoryManager;
     }
 
@@ -45,7 +47,7 @@ public class InventoryListener implements Listener {
         if (event.getCurrentItem() == null) return;
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
-        Optional<IInventory> inventoryOptional = inventoryManager.getInventoryByPlayer(player);
+        Optional<IInventory> inventoryOptional = inventoryManager.getInventoryByPlayer(null); // TODO: player selection
 
         if (inventoryOptional.isPresent()) {
             IInventory inventory = inventoryOptional.get();
@@ -70,7 +72,7 @@ public class InventoryListener implements Listener {
      */
     @EventHandler
     public void handle(PlayerQuitEvent event) {
-        inventoryManager.closeInventory(event.getPlayer());
+        inventoryManager.closeInventory(null); // TODO: player selection
     }
 
     /**
@@ -81,7 +83,7 @@ public class InventoryListener implements Listener {
     @EventHandler
     public void handle(InventoryCloseEvent event) {
         if (event.getPlayer() instanceof Player) {
-            inventoryManager.closeInventory((Player) event.getPlayer());
+            inventoryManager.closeInventory(null); // TODO: (Player) event.getPlayer() selection
         }
     }
 

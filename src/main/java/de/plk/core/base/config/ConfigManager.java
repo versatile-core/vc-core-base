@@ -3,6 +3,7 @@ package de.plk.core.base.config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import de.plk.core.api.code.NotNull;
 import de.plk.core.api.config.IConfig;
 import de.plk.core.api.config.IConfigManager;
 
@@ -21,13 +22,14 @@ public class ConfigManager<T> implements IConfigManager<T> {
     /**
      * The gson reader and writer for json files.
      */
+    @NotNull
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public IConfig<T> loadConfiguration(File file) {
+    public IConfig<T> loadConfiguration(@NotNull File file) {
         try (FileReader reader = new FileReader(file)) {
             return GSON.fromJson(reader, new TypeToken<Config<T>>() {}.getType());
         } catch (IOException e) {
@@ -39,7 +41,7 @@ public class ConfigManager<T> implements IConfigManager<T> {
      * {@inheritDoc}
      */
     @Override
-    public boolean saveConfiguration(IConfig<T> config, File file) {
+    public boolean saveConfiguration(@NotNull IConfig<T> config, @NotNull File file) {
         if (!file.exists()) {
             try {
                 file.getParentFile().mkdirs();

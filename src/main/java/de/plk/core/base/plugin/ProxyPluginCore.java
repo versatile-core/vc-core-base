@@ -1,6 +1,7 @@
 package de.plk.core.base.plugin;
 
 import de.plk.core.api.AbstractVersatileProxy;
+import de.plk.core.api.code.NotNull;
 import de.plk.core.api.plugin.IProxyPluginCore;
 
 /**
@@ -15,7 +16,7 @@ public class ProxyPluginCore extends PluginCore<AbstractVersatileProxy> implemen
      *
      * @param plugin The instance of sub plugin.
      */
-    public ProxyPluginCore(AbstractVersatileProxy plugin) {
+    public ProxyPluginCore(@NotNull AbstractVersatileProxy plugin) {
         super(plugin);
     }
 

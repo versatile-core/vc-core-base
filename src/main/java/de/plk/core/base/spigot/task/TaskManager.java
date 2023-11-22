@@ -1,9 +1,9 @@
 package de.plk.core.base.spigot.task;
 
 import de.plk.core.api.AbstractVersatileSpigot;
-import de.plk.core.api.task.ITaskIdentifier;
+import de.plk.core.api.code.NotNull;
+import de.plk.core.api.task.ITask;
 import de.plk.core.api.task.ITaskManager;
-import de.plk.core.api.task.TaskByIdFilter;
 import de.plk.core.api.task.delayed.IDelayedTask;
 import de.plk.core.api.task.repeat.IRepeatingTask;
 import de.plk.core.base.spigot.task.exception.AlreadyExistsException;
@@ -14,11 +14,12 @@ import de.plk.core.base.utils.Manager;
  * @since 05.11.2023 18:40
  * Copyright © 2023 | SoftwareBuilds | All rights reserved.
  */
-public class TaskManager extends Manager<ITaskIdentifier> implements ITaskManager {
+public class TaskManager extends Manager<ITask<?>> implements ITaskManager {
 
     /**
      * The spigot plugin instance.
      */
+    @NotNull
     private final AbstractVersatileSpigot pluginCore;
 
     /**
@@ -26,7 +27,7 @@ public class TaskManager extends Manager<ITaskIdentifier> implements ITaskManage
      *
      * @param pluginCore The spigot core.
      */
-    public TaskManager(AbstractVersatileSpigot pluginCore) {
+    public TaskManager(@NotNull AbstractVersatileSpigot pluginCore) {
         this.pluginCore = pluginCore;
     }
 
@@ -34,13 +35,13 @@ public class TaskManager extends Manager<ITaskIdentifier> implements ITaskManage
      * {@inheritDoc}
      */
     @Override
-    public IDelayedTask createDelayedTask(String taskName, long delayedTicks) {
-        if (getFirstByFilter(new TaskByIdFilter(taskName)) != null) {
-            throw new AlreadyExistsException("The task " + taskName + " is exists already.");
+    public IDelayedTask createDelayedTask(String taskIdentifier, long delayedTicks) {
+        if (getFirstByIdentifier(taskIdentifier).isEmpty()) {
+            throw new AlreadyExistsException("The task " + taskIdentifier + " is exists already.");
         }
 
         // Creation of delayed task.
-        DelayedTask delayedTask = new DelayedTask(pluginCore, taskName);
+        DelayedTask delayedTask = new DelayedTask(pluginCore, taskIdentifier);
         delayedTask.setDelayedTicks(delayedTicks);
 
         add(delayedTask);
@@ -52,13 +53,13 @@ public class TaskManager extends Manager<ITaskIdentifier> implements ITaskManage
      * {@inheritDoc}
      */
     @Override
-    public IRepeatingTask createRepeatingTask(String taskName, long delayedTicks, long repeatingTicks) {
-        if (getFirstByFilter(new TaskByIdFilter(taskName)) != null) {
-            throw new AlreadyExistsException("The task " + taskName + " is exists already.");
+    public IRepeatingTask createRepeatingTask(@NotNull String taskIdentifier, @NotNull long delayedTicks, @NotNull long repeatingTicks) {
+        if (getFirstByIdentifier(taskIdentifier).isEmpty()) {
+            throw new AlreadyExistsException("The task " + taskIdentifier + " is exists already.");
         }
 
         // Creation of repeating task.
-        RepeatingTask repeatingTask = new RepeatingTask(pluginCore, taskName);
+        RepeatingTask repeatingTask = new RepeatingTask(pluginCore, taskIdentifier);
         repeatingTask.setDelayedTicks(delayedTicks);
         repeatingTask.setRepeatingTicks(repeatingTicks);
 

@@ -1,7 +1,10 @@
 package de.plk.core.base.spigot.inventory;
 
+import de.plk.core.api.code.NotNull;
+import de.plk.core.api.code.Nullable;
 import de.plk.core.api.spigot.inventory.IInventory;
 import de.plk.core.api.spigot.inventory.item.IItem;
+import de.plk.core.base.utils.Identification;
 import org.bukkit.event.Listener;
 
 import java.util.HashMap;
@@ -12,21 +15,18 @@ import java.util.Map;
  * @since 18.11.2023 19:48
  * Copyright © 2023 | SoftwareBuilds | All rights reserved.
  */
-public class VersatileInventory implements IInventory {
+public class VersatileInventory extends Identification implements IInventory {
 
     /**
      * The inventory contents.
      */
+    @NotNull
     private final Map<Integer, IItem> contents = new HashMap<>();
-
-    /**
-     * The inventory identifier.
-     */
-    private final String inventoryIdentifier;
 
     /**
      * The inventory title.
      */
+    @NotNull
     private String title;
 
     /**
@@ -35,13 +35,14 @@ public class VersatileInventory implements IInventory {
     private int inventorySize;
 
     /**
-     * True of the inventory has no moveable items.
+     * True of the inventory has no movable items.
      */
     private boolean fullUnclickable;
 
     /**
      * The inventory listener.
      */
+    @Nullable
     private Listener listener;
 
     /**
@@ -49,16 +50,8 @@ public class VersatileInventory implements IInventory {
      *
      * @param inventoryIdentifier The inventory identifier.
      */
-    public VersatileInventory(String inventoryIdentifier) {
-        this.inventoryIdentifier = inventoryIdentifier;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getInventoryIdentifier() {
-        return inventoryIdentifier;
+    public VersatileInventory(@NotNull String inventoryIdentifier) {
+        super(inventoryIdentifier);
     }
 
     /**
@@ -121,16 +114,16 @@ public class VersatileInventory implements IInventory {
      * {@inheritDoc}
      */
     @Override
-    public void addInventoryListener(Listener listener) {
-        this.listener = listener;
+    public Listener getListener() {
+        return listener;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Listener getInventoryListener() {
-        return listener;
+    public void setListener(Listener listener) {
+        this.listener = listener;
     }
 
 }

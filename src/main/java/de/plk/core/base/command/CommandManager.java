@@ -8,7 +8,7 @@ import de.plk.core.base.utils.Manager;
  * @since 09.08.2023 12:37
  * Copyright © 2023 | SoftwareBuilds | All rights reserved.
  */
-public class CommandManager<P> extends Manager<AbstractCommand> implements ICommandManager {
+public class CommandManager extends Manager<AbstractCommand<?>> implements ICommandManager {
 
     /**
      * {@inheritDoc}

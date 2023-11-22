@@ -1,6 +1,7 @@
 package de.plk.core.base.spigot.task;
 
 import de.plk.core.api.AbstractVersatileSpigot;
+import de.plk.core.api.code.NotNull;
 import de.plk.core.api.task.delayed.IDelayedTask;
 
 /**
@@ -19,10 +20,10 @@ public class DelayedTask extends AbstractTask<Runnable> implements IDelayedTask 
      * Defines the delayed task.
      *
      * @param pluginCore The spigot core.
-     * @param taskName   The task name.
+     * @param taskIdentifier The task name.
      */
-    public DelayedTask(AbstractVersatileSpigot pluginCore, String taskName) {
-        super(pluginCore, taskName);
+    public DelayedTask(@NotNull AbstractVersatileSpigot pluginCore, @NotNull String taskIdentifier) {
+        super(pluginCore, taskIdentifier);
     }
 
     /**

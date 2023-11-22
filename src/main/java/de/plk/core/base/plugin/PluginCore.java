@@ -1,5 +1,6 @@
 package de.plk.core.base.plugin;
 
+import de.plk.core.api.code.NotNull;
 import de.plk.core.api.command.ICommandManager;
 import de.plk.core.api.config.IConfigManager;
 import de.plk.core.api.database.IDatabaseManager;
@@ -23,26 +24,31 @@ public class PluginCore<P> implements IPluginCore {
     /**
      * The plugin instance.
      */
+    @NotNull
     private final P plugin;
 
     /**
      * The command manager.
      */
+    @NotNull
     private final ICommandManager commandManager;
 
     /**
      * The database manager.
      */
+    @NotNull
     private IDatabaseManager databaseManager;
 
     /**
      * The language manager.
      */
+    @NotNull
     private final IManager<ILanguage> languageManager;
 
     /**
      * The game manager.
      */
+    @NotNull
     private final IManager<IGame> gameManager;
 
     /**
@@ -50,9 +56,10 @@ public class PluginCore<P> implements IPluginCore {
      *
      * @param plugin  The instance of sub plugin.
      */
-    public PluginCore(P plugin) {
+    public PluginCore(@NotNull P plugin) {
         this.plugin = plugin;
-        this.commandManager = new CommandManager<>();
+
+        this.commandManager = new CommandManager();
         this.languageManager = new Manager<>();
         this.gameManager = new Manager<>();
     }
@@ -110,6 +117,7 @@ public class PluginCore<P> implements IPluginCore {
      *
      * @return The plugin instance.
      */
+    @NotNull
     public P getPlugin() {
         return plugin;
     }

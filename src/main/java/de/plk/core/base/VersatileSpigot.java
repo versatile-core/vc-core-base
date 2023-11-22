@@ -1,6 +1,7 @@
 package de.plk.core.base;
 
 import de.plk.core.api.AbstractVersatileSpigot;
+import de.plk.core.api.code.NotNull;
 import de.plk.core.api.plugin.IInstanceSpigot;
 import de.plk.core.api.plugin.ISpigotPluginCore;
 import de.plk.core.base.plugin.SpigotPluginCore;
@@ -19,6 +20,7 @@ public class VersatileSpigot extends AbstractVersatileSpigot implements IInstanc
     /**
      * All plugin instances.
      */
+    @NotNull
     private static final Map<JavaPlugin, ISpigotPluginCore> instances = new HashMap<>();
 
     /**
@@ -41,7 +43,7 @@ public class VersatileSpigot extends AbstractVersatileSpigot implements IInstanc
      * {@inheritDoc}
      */
     @Override
-    public ISpigotPluginCore createPluginCore(AbstractVersatileSpigot plugin) {
+    public ISpigotPluginCore createPluginCore(@NotNull AbstractVersatileSpigot plugin) {
         if (instances.containsKey(plugin)) {
             return instances.get(plugin);
         }

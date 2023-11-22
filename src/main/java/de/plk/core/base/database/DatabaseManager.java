@@ -1,5 +1,7 @@
 package de.plk.core.base.database;
 
+import de.plk.core.api.code.NotNull;
+import de.plk.core.api.code.Nullable;
 import de.plk.core.api.config.IConfig;
 import de.plk.core.api.database.IDatabaseManager;
 import de.plk.core.api.database.IModel;
@@ -20,11 +22,13 @@ public class DatabaseManager implements IDatabaseManager {
     /**
      * The database configuration.
      */
+    @NotNull
     private final IConfig<String> databaseConfig;
 
     /**
      * The active database connection.
      */
+    @Nullable
     private Connection connection = null;
 
     /**
@@ -32,7 +36,7 @@ public class DatabaseManager implements IDatabaseManager {
      *
      * @param databaseConfig The active database config.
      */
-    public DatabaseManager(IConfig<String> databaseConfig) {
+    public DatabaseManager(@NotNull IConfig<String> databaseConfig) {
         this.databaseConfig = databaseConfig;
     }
 
@@ -49,7 +53,7 @@ public class DatabaseManager implements IDatabaseManager {
      */
     @Override
     public void connect() {
-        Map<String, String> config = databaseConfig.getContent();
+        final Map<String, String> config = databaseConfig.getContent();
 
         try {
             connection = getConnWithProps(
@@ -78,10 +82,15 @@ public class DatabaseManager implements IDatabaseManager {
      * @throws SQLException If you could not connect.
      */
     private Connection getConnWithProps(
+            @NotNull
             String host,
+            @NotNull
             String port,
+            @NotNull
             String database,
+            @NotNull
             String username,
+            @NotNull
             String password
     ) throws SQLException {
         return DriverManager.getConnection(String.format("jdbc:mysql://%s:%s/%s",
@@ -113,7 +122,7 @@ public class DatabaseManager implements IDatabaseManager {
      * {@inheritDoc}
      */
     @Override
-    public <M extends IModel> M runSync(IQuery<M> query) {
+    public <M extends IModel> M runSync(@NotNull IQuery<M> query) {
         query.execute();
         return query.getResult();
     }

@@ -1,13 +1,14 @@
 package de.plk.core.base.spigot.inventory;
 
+import de.plk.core.api.AbstractVersatileSpigot;
+import de.plk.core.api.code.NotNull;
+import de.plk.core.api.entity.ISpigotPlayer;
 import de.plk.core.api.spigot.inventory.IInventory;
 import de.plk.core.api.spigot.inventory.IInventoryManager;
-import de.plk.core.api.spigot.inventory.InventoryByIdFilter;
+import de.plk.core.api.utils.IListenable;
 import de.plk.core.base.utils.Manager;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Map;
 import java.util.Objects;
@@ -25,19 +26,21 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      * The active inventories on the server.
      * Concurrent because a lot of players have inventories switching at the same time.
      */
-    private final Map<Player, IInventory> activeInventories = new ConcurrentHashMap<>();
+    @NotNull
+    private final Map<ISpigotPlayer, IInventory> activeInventories = new ConcurrentHashMap<>();
 
     /**
      * The plugin instance.
      */
-    private final JavaPlugin plugin;
+    @NotNull
+    private final AbstractVersatileSpigot plugin;
 
     /**
      * Construct the inventory manager.
      *
      * @param plugin The plugin instance
      */
-    public InventoryManager(JavaPlugin plugin) {
+    public InventoryManager(@NotNull AbstractVersatileSpigot plugin) {
         this.plugin = plugin;
 
         // Register the base inventory listener.
@@ -48,17 +51,16 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      * {@inheritDoc}
      */
     @Override
-    public void openInventory(Player player, IInventory inventory) {
-        activeInventories.put(player, inventory);
-
-        player.openInventory(buildSpigotInventory(inventory));
+    public void openInventory(@NotNull ISpigotPlayer spigotPlayer, @NotNull IInventory inventory) {
+        activeInventories.put(spigotPlayer, inventory);
+        spigotPlayer.getPlayer().openInventory(buildSpigotInventory(inventory));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public IInventory createInventory(String inventoryIdentifier, String title, int inventorySize) {
+    public IInventory createInventory(@NotNull String inventoryIdentifier, @NotNull String title, int inventorySize) {
         IInventory inventory = new VersatileInventory(inventoryIdentifier);
         inventory.setInventoryTitle(title);
         inventory.setInventorySize(inventorySize);
@@ -75,7 +77,7 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      * {@inheritDoc}
      */
     @Override
-    public IInventory createInventory(String inventoryIdentifier, String title, int inventorySize, boolean fullUnlickable) {
+    public IInventory createInventory(@NotNull String inventoryIdentifier, @NotNull String title, int inventorySize, boolean fullUnlickable) {
         IInventory inventory = createInventory(inventoryIdentifier, title, inventorySize);
 
         inventory.setFullUnclickable(true);
@@ -87,7 +89,7 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      * {@inheritDoc}
      */
     @Override
-    public Map<Player, IInventory> getAllActiveInventories() {
+    public Map<ISpigotPlayer, IInventory> getAllActiveInventories() {
         return activeInventories;
     }
 
@@ -95,16 +97,8 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      * {@inheritDoc}
      */
     @Override
-    public Optional<IInventory> getInventoryByPlayer(Player player) {
-        return Optional.ofNullable(activeInventories.get(player));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<IInventory> getInventoryByIdentifier(InventoryByIdFilter inventoryByIdFilter) {
-        return Optional.ofNullable(getFirstByFilter(inventoryByIdFilter));
+    public Optional<IInventory> getInventoryByPlayer(@NotNull ISpigotPlayer spigotPlayer) {
+        return Optional.ofNullable(activeInventories.get(spigotPlayer));
     }
 
     /**
@@ -112,17 +106,17 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      */
     @Override
     public void registerAllListeners() {
-        getAll().stream().map(IInventory::getInventoryListener).filter(Objects::nonNull).forEach(inventory -> {
-            Bukkit.getPluginManager().registerEvents(inventory, plugin);
-        });
+        getAll().stream().map(IListenable::getListener).filter(Objects::nonNull).forEach(inventory ->
+            Bukkit.getPluginManager().registerEvents(inventory, plugin)
+        );
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void closeInventory(Player player) {
-        activeInventories.remove(player);
+    public void closeInventory(@NotNull ISpigotPlayer spigotPlayer) {
+        activeInventories.remove(spigotPlayer);
     }
 
     /**
@@ -132,7 +126,7 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      *
      * @return The built minecraft inventory.
      */
-    private static Inventory buildSpigotInventory(IInventory inventory) {
+    private static Inventory buildSpigotInventory(@NotNull IInventory inventory) {
         if (inventory.getInventorySize() % 9 != 0 || inventory.getInventorySize() > 9 * 6) {
             throw new RuntimeException("Das Inventar ist zu groß oder nicht durch neun teilbar.");
         }

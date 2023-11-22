@@ -1,6 +1,9 @@
 package de.plk.core.base.utils;
 
+import de.plk.core.api.code.NotNull;
+import de.plk.core.api.code.Nullable;
 import de.plk.core.api.config.IConfig;
+import de.plk.core.api.utils.IIdentifier;
 import de.plk.core.api.utils.IManager;
 
 import java.util.List;
@@ -14,11 +17,12 @@ import java.util.stream.Stream;
  * @since 08.08.2023 15:25
  * Copyright © 2023 | SoftwareBuilds | All rights reserved.
  */
-public class Manager<E> implements IManager<E> {
+public class Manager<E extends IIdentifier> implements IManager<E> {
 
     /**
      * The set of elements.
      */
+    @NotNull
     protected final List<E> elements = new CopyOnWriteArrayList<>();
 
     /**
@@ -26,8 +30,8 @@ public class Manager<E> implements IManager<E> {
      *
      * @param config The config.
      */
-    public Manager(IConfig<E> config) {
-        config.getContent().forEach((key, value) -> add(value));
+    public Manager(@NotNull IConfig<E> config) {
+        this.loadContentFromConfig(config);
     }
 
     /**
@@ -39,7 +43,7 @@ public class Manager<E> implements IManager<E> {
      * {@inheritDoc}
      */
     @Override
-    public boolean add(E element) {
+    public boolean add(@NotNull E element) {
         return elements.add(element);
     }
 
@@ -47,7 +51,7 @@ public class Manager<E> implements IManager<E> {
      * {@inheritDoc}
      */
     @Override
-    public boolean remove(E element) {
+    public boolean remove(@Nullable E element) {
         return elements.remove(element);
     }
 
@@ -55,7 +59,7 @@ public class Manager<E> implements IManager<E> {
      * {@inheritDoc}
      */
     @Override
-    public Stream<E> getByFilter(Predicate<E> filter) {
+    public Stream<E> getByFilter(@NotNull Predicate<E> filter) {
         return elements.stream().filter(filter);
     }
 
@@ -63,9 +67,8 @@ public class Manager<E> implements IManager<E> {
      * {@inheritDoc}
      */
     @Override
-    public E getFirstByFilter(Predicate<E> filter) {
-        Optional<E> element = getByFilter(filter).findFirst();
-        return element.orElse(null);
+    public Optional<E> getFirstByFilter(@NotNull Predicate<E> filter) {
+        return getByFilter(filter).findFirst();
     }
 
     /**
@@ -74,6 +77,14 @@ public class Manager<E> implements IManager<E> {
     @Override
     public List<E> getAll() {
         return elements;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void loadContentFromConfig(@NotNull IConfig<E> config) {
+        config.getContent().values().forEach(this::add);
     }
 
 }

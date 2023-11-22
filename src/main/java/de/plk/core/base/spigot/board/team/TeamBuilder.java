@@ -1,5 +1,7 @@
 package de.plk.core.base.spigot.board.team;
 
+import de.plk.core.api.code.NotNull;
+import de.plk.core.api.code.Nullable;
 import de.plk.core.api.spigot.board.team.IScoreboardTeam;
 import de.plk.core.api.spigot.board.team.ITeamBuilder;
 import org.bukkit.ChatColor;
@@ -14,33 +16,38 @@ public class TeamBuilder implements ITeamBuilder {
     /**
      * The prefix of the team.
      */
-    private String prefix;
+    @NotNull
+    private String prefix = "";
 
     /**
      * The suffix of the team.
      */
-    private String suffix;
+    @NotNull
+    private String suffix = "";
 
     /**
      * The team identifier.
      */
+    @NotNull
     private String identifier;
 
     /**
      * The value string which can be updated.
      */
+    @Nullable
     private String updatingString;
 
     /**
      * The entry for team value updates.
      */
+    @Nullable
     private ChatColor entry;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public ITeamBuilder setPrefix(String prefix) {
+    public ITeamBuilder setPrefix(@NotNull String prefix) {
         this.prefix = prefix;
         return this;
     }
@@ -49,7 +56,7 @@ public class TeamBuilder implements ITeamBuilder {
      * {@inheritDoc}
      */
     @Override
-    public ITeamBuilder setSuffix(String suffix) {
+    public ITeamBuilder setSuffix(@NotNull String suffix) {
         this.suffix = suffix;
         return this;
     }
@@ -58,7 +65,7 @@ public class TeamBuilder implements ITeamBuilder {
      * {@inheritDoc}
      */
     @Override
-    public ITeamBuilder setIdentifier(String identifier) {
+    public ITeamBuilder setIdentifier(@NotNull String identifier) {
         this.identifier = identifier;
         return this;
     }
@@ -67,7 +74,7 @@ public class TeamBuilder implements ITeamBuilder {
      * {@inheritDoc}
      */
     @Override
-    public ITeamBuilder setUpdatedString(String s, Object... objects) {
+    public ITeamBuilder setUpdatedString(@NotNull String updatingString, @NotNull Object... objects) {
         this.updatingString = updatingString.formatted(objects);
         return this;
     }
@@ -76,7 +83,7 @@ public class TeamBuilder implements ITeamBuilder {
      * {@inheritDoc}
      */
     @Override
-    public ITeamBuilder setEntry(ChatColor entry) {
+    public ITeamBuilder setEntry(@NotNull ChatColor entry) {
         this.entry = entry;
         return this;
     }

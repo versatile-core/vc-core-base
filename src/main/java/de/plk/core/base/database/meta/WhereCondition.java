@@ -1,5 +1,7 @@
 package de.plk.core.base.database.meta;
 
+import de.plk.core.api.code.NotNull;
+import de.plk.core.api.code.Nullable;
 import de.plk.core.api.database.meta.Column;
 import de.plk.core.api.database.query.IQueryBuilder;
 
@@ -13,16 +15,19 @@ public class WhereCondition<V> {
     /**
      * The column to check the condition.
      */
+    @NotNull
     private final Column column;
 
     /**
      * The operation to check on the condition.
      */
+    @NotNull
     private final IQueryBuilder.Operand operand;
 
     /**
      * The value to check on the condition.
      */
+    @NotNull
     private final V needle;
 
     /**
@@ -32,9 +37,9 @@ public class WhereCondition<V> {
      * @param operand The operation.
      * @param needle  The value.
      */
-    public WhereCondition(Column column, IQueryBuilder.Operand operand, V needle) {
+    public WhereCondition(@NotNull Column column, @Nullable IQueryBuilder.Operand operand, V needle) {
         this.column = column;
-        this.operand = operand;
+        this.operand = operand != null ? operand : IQueryBuilder.Operand.EQUAL;
         this.needle = needle;
     }
 

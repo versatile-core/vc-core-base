@@ -1,5 +1,7 @@
 package de.plk.core.base.config;
 
+import de.plk.core.api.code.NotNull;
+import de.plk.core.api.code.Nullable;
 import de.plk.core.api.config.IConfig;
 
 import java.util.HashMap;
@@ -17,7 +19,7 @@ public class Config<T> extends HashMap<String, T> implements IConfig<T> {
      *
      * @param contents The contents.
      */
-    public Config(Map<String, T> contents) {
+    public Config(@NotNull Map<String, T> contents) {
         contents.clear();
         this.putAll(contents);
     }
@@ -25,9 +27,7 @@ public class Config<T> extends HashMap<String, T> implements IConfig<T> {
     /**
      * Construct a config.
      */
-    public Config() {
-
-    }
+    public Config() {}
 
     /**
      * {@inheritDoc}
@@ -41,7 +41,7 @@ public class Config<T> extends HashMap<String, T> implements IConfig<T> {
      * {@inheritDoc}
      */
     @Override
-    public IConfig<T> append(String key, T value) {
+    public IConfig<T> append(@NotNull String key, @Nullable T value) {
         if (!containsKey(key))
             put(key, value);
 
@@ -52,19 +52,11 @@ public class Config<T> extends HashMap<String, T> implements IConfig<T> {
      * {@inheritDoc}
      */
     @Override
-    public IConfig<T> disappear(String key) {
+    public IConfig<T> disappear(@NotNull String key) {
         if (containsKey(key))
             remove(key);
 
         return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void clear() {
-        super.clear();
     }
 
 }

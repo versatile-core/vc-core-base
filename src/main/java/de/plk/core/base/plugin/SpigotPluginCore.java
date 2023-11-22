@@ -1,6 +1,8 @@
 package de.plk.core.base.plugin;
 
 import de.plk.core.api.AbstractVersatileSpigot;
+import de.plk.core.api.code.NotNull;
+import de.plk.core.api.code.Nullable;
 import de.plk.core.api.plugin.ISpigotPluginCore;
 import de.plk.core.api.spigot.board.IScoreboardManager;
 import de.plk.core.api.spigot.hologram.IHologramManager;
@@ -21,21 +23,25 @@ public class SpigotPluginCore extends PluginCore<AbstractVersatileSpigot> implem
     /**
      * The task manager.
      */
+    @Nullable
     private TaskManager taskManager;
 
     /**
      * The inventory manager.
      */
+    @Nullable
     private InventoryManager inventoryManager;
 
     /**
      * The scoreboard manager.
      */
+    @Nullable
     private ScoreboardManager scoreboardManager;
 
     /**
      * The hologram manager.
      */
+    @Nullable
     private HologramManager hologramManager;
 
     /**
@@ -43,7 +49,7 @@ public class SpigotPluginCore extends PluginCore<AbstractVersatileSpigot> implem
      *
      * @param plugin The instance of sub plugin.
      */
-    public SpigotPluginCore(AbstractVersatileSpigot plugin) {
+    public SpigotPluginCore(@NotNull AbstractVersatileSpigot plugin) {
         super(plugin);
     }
 

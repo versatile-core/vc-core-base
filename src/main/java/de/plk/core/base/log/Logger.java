@@ -1,5 +1,6 @@
 package de.plk.core.base.log;
 
+import de.plk.core.api.code.NotNull;
 import de.plk.core.api.log.ILogger;
 import de.plk.core.api.log.LogType;
 
@@ -13,12 +14,13 @@ public class Logger implements ILogger {
     /**
      * The logger channel
      */
+    @NotNull
     private final String channel;
 
     /**
      * {@inheritDoc}
      */
-    public Logger(String channel) {
+    public Logger(@NotNull String channel) {
         this.channel = channel;
     }
 

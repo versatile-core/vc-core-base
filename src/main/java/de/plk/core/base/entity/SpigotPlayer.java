@@ -1,5 +1,7 @@
 package de.plk.core.base.entity;
 
+import de.plk.core.api.code.NotNull;
+import de.plk.core.api.code.Nullable;
 import de.plk.core.api.database.meta.Column;
 import de.plk.core.api.database.meta.type.DataType;
 import de.plk.core.api.entity.ISpigotPlayer;
@@ -22,11 +24,13 @@ public class SpigotPlayer extends VersatilePlayer<Player> implements ISpigotPlay
             dataType = DataType.INT,
             foreign = true
     )
+    @NotNull
     private ISkin skin;
 
     /**
      * The current scoreboard.
      */
+    @Nullable
     private IScoreboard currentScoreboard;
 
     /**
@@ -34,7 +38,7 @@ public class SpigotPlayer extends VersatilePlayer<Player> implements ISpigotPlay
      *
      * @param player The game player.
      */
-    public SpigotPlayer(Player player) {
+    public SpigotPlayer(@NotNull Player player) {
         super(player);
     }
 
@@ -50,7 +54,7 @@ public class SpigotPlayer extends VersatilePlayer<Player> implements ISpigotPlay
      * {@inheritDoc}
      */
     @Override
-    public void setSkin(ISkin skin) {
+    public void setSkin(@NotNull ISkin skin) {
         this.skin = skin;
     }
 
@@ -67,7 +71,7 @@ public class SpigotPlayer extends VersatilePlayer<Player> implements ISpigotPlay
      *
      * @param scoreboard The new scoreboard.
      */
-    public void setCurrentScoreboard(IScoreboard scoreboard) {
+    public void setCurrentScoreboard(@Nullable IScoreboard scoreboard) {
         this.currentScoreboard = scoreboard;
     }
 }

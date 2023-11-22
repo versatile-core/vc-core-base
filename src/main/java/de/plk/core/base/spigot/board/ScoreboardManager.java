@@ -1,13 +1,16 @@
 package de.plk.core.base.spigot.board;
 
+import de.plk.core.api.AbstractVersatileSpigot;
+import de.plk.core.api.code.NotNull;
+import de.plk.core.api.entity.ISpigotPlayer;
 import de.plk.core.api.spigot.board.IScoreboard;
 import de.plk.core.api.spigot.board.IScoreboardManager;
 import de.plk.core.api.spigot.board.team.IScoreboardTeam;
+import de.plk.core.api.utils.IListenable;
+import de.plk.core.base.entity.SpigotPlayer;
 import de.plk.core.base.utils.Manager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.*;
 
 import java.util.*;
@@ -24,19 +27,21 @@ public class ScoreboardManager extends Manager<IScoreboard> implements IScoreboa
      * The concurrent map for active scoreboard.
      * Concurrent because a lot of players have scoreboard switching at the same time.
      */
-    private static final Map<Player, IScoreboard> activeScoreboard = new ConcurrentHashMap<>();
+    @NotNull
+    private static final Map<ISpigotPlayer, IScoreboard> activeScoreboard = new ConcurrentHashMap<>();
 
     /**
      * The plugin instance.
      */
-    private final JavaPlugin plugin;
+    @NotNull
+    private final AbstractVersatileSpigot plugin;
 
     /**
      * Construct the scoreboard manager.
      *
      * @param plugin The plugin instance.
      */
-    public ScoreboardManager(JavaPlugin plugin) {
+    public ScoreboardManager(@NotNull AbstractVersatileSpigot plugin) {
         this.plugin = plugin;
     }
 
@@ -47,7 +52,8 @@ public class ScoreboardManager extends Manager<IScoreboard> implements IScoreboa
      *
      * @return The built minecraft scoreboard.
      */
-    private Scoreboard buildSpigotScoreboard(Player player, IScoreboard scoreboard) {
+    @NotNull
+    private Scoreboard buildSpigotScoreboard(@NotNull IScoreboard scoreboard) {
         Scoreboard spigotScoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
 
         Objective objective = spigotScoreboard.registerNewObjective(
@@ -75,11 +81,11 @@ public class ScoreboardManager extends Manager<IScoreboard> implements IScoreboa
      *
      * @return The chat color for entry update.
      */
-    public ChatColor buildTeam(IScoreboardTeam scoreboardTeam, Scoreboard scoreboard) {
-        Team team = scoreboard.getTeam(scoreboardTeam.getTeamIdentifier());
+    public ChatColor buildTeam(@NotNull IScoreboardTeam scoreboardTeam, @NotNull Scoreboard scoreboard) {
+        Team team = scoreboard.getTeam(scoreboardTeam.getIdentifier());
 
         if (team == null) {
-            team = scoreboard.registerNewTeam(scoreboardTeam.getTeamIdentifier());
+            team = scoreboard.registerNewTeam(scoreboardTeam.getIdentifier());
         }
 
         team.setPrefix(scoreboardTeam.getPrefix() + scoreboardTeam.getValue());
@@ -94,16 +100,16 @@ public class ScoreboardManager extends Manager<IScoreboard> implements IScoreboa
      * {@inheritDoc}
      */
     @Override
-    public void sendScoreboard(Player player, IScoreboard iScoreboard) {
-        player.setScoreboard(buildSpigotScoreboard(player, iScoreboard));
-        activeScoreboard.put(player, iScoreboard);
+    public void sendScoreboard(ISpigotPlayer spigotPlayer, IScoreboard scoreboard) {
+        spigotPlayer.getPlayer().setScoreboard(buildSpigotScoreboard(scoreboard));
+        activeScoreboard.put(spigotPlayer, scoreboard);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public IScoreboard createScoreboard(String scoreboardIdentifier, DisplaySlot displaySlot, String scoreboardTitle) {
+    public IScoreboard createScoreboard(@NotNull String scoreboardIdentifier, @NotNull DisplaySlot displaySlot, @NotNull String scoreboardTitle) {
         IScoreboard scoreboard = new VersatileScoreboard(scoreboardIdentifier, displaySlot, scoreboardTitle);
 
         if (elements.contains(scoreboard))
@@ -114,30 +120,19 @@ public class ScoreboardManager extends Manager<IScoreboard> implements IScoreboa
         return scoreboard;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Optional<IScoreboard> getScoreboardByIdentifier(String scoreboardIdentifier) {
-        return Optional.ofNullable(
-                getFirstByFilter(scoreboard -> scoreboard.getScoreboardIdentifier().equals(scoreboardIdentifier))
-        );
-    }
-
-    @Override
-    public Optional<IScoreboard> getScoreboardByPlayer(Player player) {
-        return Optional.ofNullable(
-                activeScoreboard.get(player)
-        );
+    public Optional<IScoreboard> getScoreboardByPlayer(@NotNull ISpigotPlayer spigotPlayer) {
+        return Optional.ofNullable(activeScoreboard.get(spigotPlayer));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void clearScoreboard(Player player) {
-        player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-        activeScoreboard.remove(player);
+    public void clearScoreboard(ISpigotPlayer spigotPlayer) {
+        spigotPlayer.getPlayer().setScoreboard(Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard());
+        ((SpigotPlayer) spigotPlayer).setCurrentScoreboard(null);
+        activeScoreboard.remove(spigotPlayer);
     }
 
     /**
@@ -145,9 +140,9 @@ public class ScoreboardManager extends Manager<IScoreboard> implements IScoreboa
      */
     @Override
     public void registerAllListeners() {
-        getAll().stream().map(IScoreboard::getScoreboardListener).filter(Objects::nonNull).forEach(scoreboard -> {
-            Bukkit.getPluginManager().registerEvents(scoreboard, plugin);
-        });
+        getAll().stream().map(IListenable::getListener).filter(Objects::nonNull).forEach(scoreboard ->
+            Bukkit.getPluginManager().registerEvents(scoreboard, plugin)
+        );
     }
 
 }

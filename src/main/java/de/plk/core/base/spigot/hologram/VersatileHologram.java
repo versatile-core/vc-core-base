@@ -1,28 +1,30 @@
 package de.plk.core.base.spigot.hologram;
 
+import de.plk.core.api.code.NotNull;
+import de.plk.core.api.code.Nullable;
 import de.plk.core.api.spigot.hologram.IHologram;
+import de.plk.core.base.utils.Identification;
 import org.bukkit.Location;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 /**
  * @author SoftwareBuilds
  * @since 18.11.2023 19:59
  * Copyright © 2023 | SoftwareBuilds | All rights reserved.
  */
-public class VersatileHologram implements IHologram {
-
-    /**
-     * The hologram identifier.
-     */
-    private final String hologramIdentifier;
+public class VersatileHologram extends Identification implements IHologram {
 
     /**
      * The hologram location.
      */
+    @NotNull
     private Location hologramLocation;
 
     /**
      * The hologram lines.
      */
+    @NotNull
     private String[] hologramLines;
 
     /**
@@ -31,20 +33,29 @@ public class VersatileHologram implements IHologram {
     private boolean small;
 
     /**
+     * The head item.
+     */
+    @NotNull
+    private ItemStack headItem;
+
+    /**
+     * Rotation of the head.
+     */
+    @Nullable
+    private Vector headRotation;
+
+    /**
+     * Head rotation animation.
+     */
+    private boolean isAnimated;
+
+    /**
      * Construct a versatile hologram.
      *
      * @param hologramIdentifier The hologram identifier.
      */
     public VersatileHologram(String hologramIdentifier) {
-        this.hologramIdentifier = hologramIdentifier;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getHologramIdentifier() {
-        return hologramIdentifier;
+        super(hologramIdentifier);
     }
 
     /**
@@ -59,7 +70,7 @@ public class VersatileHologram implements IHologram {
      * {@inheritDoc}
      */
     @Override
-    public void setLocation(Location location) {
+    public void setLocation(@NotNull Location location) {
         this.hologramLocation = location;
     }
 
@@ -75,7 +86,7 @@ public class VersatileHologram implements IHologram {
      * {@inheritDoc}
      */
     @Override
-    public void setLines(String[] hologramLines) {
+    public void setLines(@NotNull String[] hologramLines) {
         this.hologramLines = hologramLines;
     }
 
@@ -95,4 +106,42 @@ public class VersatileHologram implements IHologram {
         this.small = small;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setHeadItem(@NotNull ItemStack itemStack) {
+        this.headItem = itemStack;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addHeadRotation(@NotNull Vector headRotation, boolean isAnimated) {
+        this.headRotation = headRotation;
+        this.isAnimated = isAnimated;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Vector getHeadRotation() {
+        return headRotation;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isAnimated() {
+        return isAnimated;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ItemStack getHeadItem() {
+        return headItem;
+    }
 }

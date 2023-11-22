@@ -1,5 +1,7 @@
 package de.plk.core.base.database.query;
 
+import de.plk.core.api.code.NotNull;
+import de.plk.core.api.code.Nullable;
 import de.plk.core.api.database.IModel;
 import de.plk.core.api.database.meta.Column;
 import de.plk.core.api.database.query.CommandType;
@@ -17,7 +19,8 @@ public class QueryBuilder<M extends IModel> implements IQueryBuilder<M> {
     /**
      * The model query.
      */
-    private Query<M> query;
+    @NotNull
+    private final Query<M> query = new Query<>();
 
     /**
      * {@inheritDoc}
@@ -32,7 +35,7 @@ public class QueryBuilder<M extends IModel> implements IQueryBuilder<M> {
      * {@inheritDoc}
      */
     @Override
-    public <V> IQueryBuilder<M> where(Column column, Operand operand, V needle) {
+    public <V> IQueryBuilder<M> where(@NotNull Column column, @Nullable Operand operand, @NotNull V needle) {
         query.setWhereCondition(new WhereCondition<>(column, operand, needle));
         return this;
     }
@@ -41,7 +44,7 @@ public class QueryBuilder<M extends IModel> implements IQueryBuilder<M> {
      * {@inheritDoc}
      */
     @Override
-    public <V> IQueryBuilder<M> orWhere(Column column, Operand operand, V needle) {
+    public <V> IQueryBuilder<M> orWhere(@NotNull Column column, @Nullable Operand operand, @NotNull V needle) {
         query.getAdaptiveOrWheres().add(new WhereCondition<>(column, operand, needle));
         return this;
     }
@@ -50,7 +53,7 @@ public class QueryBuilder<M extends IModel> implements IQueryBuilder<M> {
      * {@inheritDoc}
      */
     @Override
-    public <V> IQueryBuilder<M> andWhere(Column column, Operand operand, V needle) {
+    public <V> IQueryBuilder<M> andWhere(@NotNull Column column, @Nullable Operand operand, @NotNull V needle) {
         query.getAdaptiveAndWheres().add(new WhereCondition<>(column, operand, needle));
         return this;
     }
