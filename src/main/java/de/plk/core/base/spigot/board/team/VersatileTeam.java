@@ -54,16 +54,11 @@ public class VersatileTeam extends Identification implements IScoreboardTeam {
      * @param updatedString The updated string value of the team.
      */
     public VersatileTeam(
-            @NotNull
-            String teamIdentifier,
-            @NotNull
-            ChatColor entry,
-            @NotNull
-            String prefix,
-            @NotNull
-            String suffix,
-            @NotNull
-            String updatedString
+            @NotNull String teamIdentifier,
+            @NotNull ChatColor entry,
+            @NotNull String prefix,
+            @NotNull String suffix,
+            @NotNull String updatedString
     ) {
         super(teamIdentifier);
 

@@ -45,7 +45,7 @@ public class InventoryListener implements Listener {
     @EventHandler
     public void handle(InventoryClickEvent event) {
         if (event.getCurrentItem() == null) return;
-        if (!(event.getWhoClicked() instanceof Player player)) return;
+        if (!(event.getWhoClicked() instanceof Player)) return;
 
         Optional<IInventory> inventoryOptional = inventoryManager.getInventoryByPlayer(null); // TODO: player selection
 

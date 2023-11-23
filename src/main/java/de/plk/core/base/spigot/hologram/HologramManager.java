@@ -31,7 +31,12 @@ public class HologramManager extends Manager<IHologram> implements IHologramMana
      * {@inheritDoc}
      */
     @Override
-    public IHologram createHologram(@NotNull String hologramIdentifier, @NotNull String[] lines, @NotNull Location location, boolean small) {
+    public IHologram createHologram(
+            @NotNull String hologramIdentifier,
+            @NotNull String[] lines,
+            @NotNull Location location,
+            boolean small
+    ) {
         IHologram hologram = new VersatileHologram(hologramIdentifier);
         hologram.setLines(lines);
         hologram.setLocation(location);
@@ -100,7 +105,12 @@ public class HologramManager extends Manager<IHologram> implements IHologramMana
      * @param vector The rotation changed vector.
      * @param animated True if head rotation is animated.
      */
-    private void addHeadRotation(@NotNull ArmorStand entity, @NotNull ItemStack headItem, @Nullable Vector vector, boolean animated) {
+    private void addHeadRotation(
+            @NotNull ArmorStand entity,
+            @NotNull ItemStack headItem,
+            @Nullable Vector vector,
+            boolean animated
+    ) {
         Objects.requireNonNull(entity.getEquipment()).setHelmet(headItem);
 
         if (vector != null)

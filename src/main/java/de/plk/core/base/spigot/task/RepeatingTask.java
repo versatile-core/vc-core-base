@@ -34,9 +34,14 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
      *
      * @param pluginCore The spigot core.
      * @param taskIdentifier The task name.
+     * @param async Set that the scheduler runs async
      */
-    public RepeatingTask(@NotNull AbstractVersatileSpigot pluginCore, @NotNull String taskIdentifier) {
-        super(pluginCore, taskIdentifier);
+    public RepeatingTask(
+            @NotNull AbstractVersatileSpigot pluginCore,
+            @NotNull String taskIdentifier,
+            boolean async
+    ) {
+        super(pluginCore, taskIdentifier, async);
 
         this.repeatCounter = new IRepeatCounter() {
 
@@ -132,7 +137,10 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
      */
     @Override
     public void start() {
-        task = BUKKIT_SCHEDULER.runTaskTimerAsynchronously(pluginCore, () -> runnable.run(repeatCounter), delayedTicks, repeatingTicks);
+        final Runnable taskRunnable = () -> runnable.run(repeatCounter);
+        task = async
+                ? BUKKIT_SCHEDULER.runTaskTimerAsynchronously(pluginCore, taskRunnable, delayedTicks, repeatingTicks)
+                : BUKKIT_SCHEDULER.runTaskTimer(pluginCore, taskRunnable, delayedTicks, repeatingTicks);
     }
 
 }

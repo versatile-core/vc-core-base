@@ -2,8 +2,8 @@ package de.plk.core.base;
 
 import de.plk.core.api.AbstractVersatileProxy;
 import de.plk.core.api.code.NotNull;
-import de.plk.core.api.plugin.IInstanceProxy;
 import de.plk.core.api.plugin.IProxyPluginCore;
+import de.plk.core.api.plugin.instance.IInstanceProxy;
 import de.plk.core.base.plugin.ProxyPluginCore;
 import net.md_5.bungee.api.plugin.Plugin;
 

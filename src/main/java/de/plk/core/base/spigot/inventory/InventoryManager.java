@@ -60,7 +60,11 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      * {@inheritDoc}
      */
     @Override
-    public IInventory createInventory(@NotNull String inventoryIdentifier, @NotNull String title, int inventorySize) {
+    public IInventory createInventory(
+            @NotNull String inventoryIdentifier,
+            @NotNull String title,
+            int inventorySize
+    ) {
         IInventory inventory = new VersatileInventory(inventoryIdentifier);
         inventory.setInventoryTitle(title);
         inventory.setInventorySize(inventorySize);
@@ -77,7 +81,12 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      * {@inheritDoc}
      */
     @Override
-    public IInventory createInventory(@NotNull String inventoryIdentifier, @NotNull String title, int inventorySize, boolean fullUnlickable) {
+    public IInventory createInventory(
+            @NotNull String inventoryIdentifier,
+            @NotNull String title,
+            int inventorySize,
+            boolean fullUnlickable
+    ) {
         IInventory inventory = createInventory(inventoryIdentifier, title, inventorySize);
 
         inventory.setFullUnclickable(true);
@@ -128,19 +137,23 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      */
     private static Inventory buildSpigotInventory(@NotNull IInventory inventory) {
         if (inventory.getInventorySize() % 9 != 0 || inventory.getInventorySize() > 9 * 6) {
-            throw new RuntimeException("Das Inventar ist zu groß oder nicht durch neun teilbar.");
+            throw new RuntimeException("The inventory is too large or cannot be divided by nine.");
         }
 
         // Create spigot inventory base.
         Inventory spigotInventory = Bukkit.createInventory(
-                null, inventory.getInventorySize(), inventory.getInventoryTitle()
+                null,
+                inventory.getInventorySize(),
+                inventory.getInventoryTitle()
         );
 
         if (inventory.getInventoryContents().size() > spigotInventory.getSize())
-            throw new RuntimeException("Du hast mehr items, als wie dein Inventar groß ist.");
+            throw new RuntimeException("You have more items than the size of your inventory");
 
         // Set items to the inventory.
-        inventory.getInventoryContents().forEach((slot, item) -> spigotInventory.setItem(slot, item.getItemStack()));
+        inventory.getInventoryContents().forEach((slot, item) ->
+                spigotInventory.setItem(slot, item.getItemStack())
+        );
 
         return spigotInventory;
     }

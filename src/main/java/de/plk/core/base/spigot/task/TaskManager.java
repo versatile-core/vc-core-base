@@ -35,13 +35,13 @@ public class TaskManager extends Manager<ITask<?>> implements ITaskManager {
      * {@inheritDoc}
      */
     @Override
-    public IDelayedTask createDelayedTask(String taskIdentifier, long delayedTicks) {
+    public IDelayedTask createDelayedTask(@NotNull String taskIdentifier, long delayedTicks, boolean async) {
         if (getFirstByIdentifier(taskIdentifier).isEmpty()) {
             throw new AlreadyExistsException("The task " + taskIdentifier + " is exists already.");
         }
 
         // Creation of delayed task.
-        DelayedTask delayedTask = new DelayedTask(pluginCore, taskIdentifier);
+        DelayedTask delayedTask = new DelayedTask(pluginCore, taskIdentifier, async);
         delayedTask.setDelayedTicks(delayedTicks);
 
         add(delayedTask);
@@ -53,13 +53,18 @@ public class TaskManager extends Manager<ITask<?>> implements ITaskManager {
      * {@inheritDoc}
      */
     @Override
-    public IRepeatingTask createRepeatingTask(@NotNull String taskIdentifier, @NotNull long delayedTicks, @NotNull long repeatingTicks) {
+    public IRepeatingTask createRepeatingTask(
+            @NotNull String taskIdentifier,
+            long delayedTicks,
+            long repeatingTicks,
+            boolean async
+    ) {
         if (getFirstByIdentifier(taskIdentifier).isEmpty()) {
             throw new AlreadyExistsException("The task " + taskIdentifier + " is exists already.");
         }
 
         // Creation of repeating task.
-        RepeatingTask repeatingTask = new RepeatingTask(pluginCore, taskIdentifier);
+        RepeatingTask repeatingTask = new RepeatingTask(pluginCore, taskIdentifier, async);
         repeatingTask.setDelayedTicks(delayedTicks);
         repeatingTask.setRepeatingTicks(repeatingTicks);
 

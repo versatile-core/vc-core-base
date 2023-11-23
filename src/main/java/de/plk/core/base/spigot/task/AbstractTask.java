@@ -41,14 +41,26 @@ public abstract class AbstractTask<T> extends Identification implements ITask<T>
     protected T runnable;
 
     /**
+     * True if the scheduler will be run async.
+     */
+    @NotNull
+    protected boolean async;
+
+    /**
      * Defines the abstract task.
      *
      * @param pluginCore The spigot plugin instance.
-     * @param taskIdentifier   The task name.
+     * @param taskIdentifier The task name.
+     * @param async Set that the scheduler runs async.
      */
-    public AbstractTask(@NotNull AbstractVersatileSpigot pluginCore, @NotNull String taskIdentifier) {
+    public AbstractTask(
+            @NotNull AbstractVersatileSpigot pluginCore,
+            @NotNull String taskIdentifier,
+            boolean async
+    ) {
         super(taskIdentifier);
         this.pluginCore = pluginCore;
+        this.async = async;
     }
 
     /**
@@ -73,6 +85,14 @@ public abstract class AbstractTask<T> extends Identification implements ITask<T>
     @Override
     public void stop() {
         task.cancel();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isAsync() {
+        return async;
     }
 
 }

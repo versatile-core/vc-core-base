@@ -1,7 +1,7 @@
 package de.plk.core.base.utils;
 
 import de.plk.core.api.code.NotNull;
-import de.plk.core.api.utils.IIdentifier;
+import de.plk.core.api.utils.id.IIdentifier;
 
 /**
  * @author SoftwareBuilds

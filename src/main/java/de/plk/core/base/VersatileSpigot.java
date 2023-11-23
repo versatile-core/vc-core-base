@@ -2,8 +2,8 @@ package de.plk.core.base;
 
 import de.plk.core.api.AbstractVersatileSpigot;
 import de.plk.core.api.code.NotNull;
-import de.plk.core.api.plugin.IInstanceSpigot;
 import de.plk.core.api.plugin.ISpigotPluginCore;
+import de.plk.core.api.plugin.instance.IInstanceSpigot;
 import de.plk.core.base.plugin.SpigotPluginCore;
 import org.bukkit.plugin.java.JavaPlugin;
 
