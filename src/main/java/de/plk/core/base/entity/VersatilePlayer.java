@@ -19,9 +19,9 @@ public class VersatilePlayer<T> implements IVersatilePlayer<T> {
      * The game player.
      */
     @Column(
-            name = "uuid",
-            dataType = DataType.VARCHAR,
-            primary = true
+        name = "uuid",
+        dataType = DataType.VARCHAR,
+        primary = true
     )
     @NotNull
     private final T player;
@@ -30,8 +30,8 @@ public class VersatilePlayer<T> implements IVersatilePlayer<T> {
      * The language.
      */
     @Column(
-            name = "language",
-            dataType = DataType.VARCHAR
+        name = "language",
+        dataType = DataType.VARCHAR
     )
     @NotNull
     private ILanguage language;

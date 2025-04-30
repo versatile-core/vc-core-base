@@ -54,10 +54,10 @@ public class TaskManager extends Manager<ITask<?>> implements ITaskManager {
      */
     @Override
     public IRepeatingTask createRepeatingTask(
-            @NotNull String taskIdentifier,
-            long delayedTicks,
-            long repeatingTicks,
-            boolean async
+        @NotNull String taskIdentifier,
+        long delayedTicks,
+        long repeatingTicks,
+        boolean async
     ) {
         if (getFirstByIdentifier(taskIdentifier).isEmpty()) {
             throw new AlreadyExistsException("The task " + taskIdentifier + " is exists already.");

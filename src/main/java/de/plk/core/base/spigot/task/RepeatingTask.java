@@ -37,9 +37,9 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
      * @param async Set that the scheduler runs async
      */
     public RepeatingTask(
-            @NotNull AbstractVersatileSpigot pluginCore,
-            @NotNull String taskIdentifier,
-            boolean async
+        @NotNull AbstractVersatileSpigot pluginCore,
+        @NotNull String taskIdentifier,
+        boolean async
     ) {
         super(pluginCore, taskIdentifier, async);
 
@@ -139,8 +139,8 @@ public class RepeatingTask extends AbstractTask<IRepeatingRunnable> implements I
     public void start() {
         final Runnable taskRunnable = () -> runnable.run(repeatCounter);
         task = async
-                ? BUKKIT_SCHEDULER.runTaskTimerAsynchronously(pluginCore, taskRunnable, delayedTicks, repeatingTicks)
-                : BUKKIT_SCHEDULER.runTaskTimer(pluginCore, taskRunnable, delayedTicks, repeatingTicks);
+            ? BUKKIT_SCHEDULER.runTaskTimerAsynchronously(pluginCore, taskRunnable, delayedTicks, repeatingTicks)
+            : BUKKIT_SCHEDULER.runTaskTimer(pluginCore, taskRunnable, delayedTicks, repeatingTicks);
     }
 
 }

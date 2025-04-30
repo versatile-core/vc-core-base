@@ -32,10 +32,10 @@ public class HologramManager extends Manager<IHologram> implements IHologramMana
      */
     @Override
     public IHologram createHologram(
-            @NotNull String hologramIdentifier,
-            @NotNull String[] lines,
-            @NotNull Location location,
-            boolean small
+        @NotNull String hologramIdentifier,
+        @NotNull String[] lines,
+        @NotNull Location location,
+        boolean small
     ) {
         IHologram hologram = new VersatileHologram(hologramIdentifier);
         hologram.setLines(lines);
@@ -63,7 +63,7 @@ public class HologramManager extends Manager<IHologram> implements IHologramMana
 
             int tempLineIdentifier = i;
             Optional<ArmorStand> foundedEntity = livingEntities.stream().filter((livingEntity) ->
-                    Objects.requireNonNull(livingEntity.getCustomName()).contains(lines[tempLineIdentifier])
+                Objects.requireNonNull(livingEntity.getCustomName()).contains(lines[tempLineIdentifier])
             ).findFirst();
 
             ArmorStand entity;
@@ -73,8 +73,8 @@ public class HologramManager extends Manager<IHologram> implements IHologramMana
                 entity.teleport(hologram.getLocation().clone().add(0,  (hologram.isSmall() ? 1 : 2) + i * 0.3D, 0));
             } else {
                 entity = (ArmorStand) Objects.requireNonNull(hologram.getLocation().getWorld()).spawnEntity(
-                        hologram.getLocation().clone().add(0, (hologram.isSmall() ? 1 : 2) + i * 0.3D, 0),
-                        EntityType.ARMOR_STAND
+                    hologram.getLocation().clone().add(0, (hologram.isSmall() ? 1 : 2) + i * 0.3D, 0),
+                    EntityType.ARMOR_STAND
                 );
 
                 entity.setCustomNameVisible(true);
@@ -106,10 +106,10 @@ public class HologramManager extends Manager<IHologram> implements IHologramMana
      * @param animated True if head rotation is animated.
      */
     private void addHeadRotation(
-            @NotNull ArmorStand entity,
-            @NotNull ItemStack headItem,
-            @Nullable Vector vector,
-            boolean animated
+        @NotNull ArmorStand entity,
+        @NotNull ItemStack headItem,
+        @Nullable Vector vector,
+        boolean animated
     ) {
         Objects.requireNonNull(entity.getEquipment()).setHelmet(headItem);
 
@@ -137,9 +137,9 @@ public class HologramManager extends Manager<IHologram> implements IHologramMana
         final EulerAngle currentPosition = armorStand.getHeadPose();
 
         armorStand.setHeadPose(new EulerAngle(
-                currentPosition.getX() + vector.getX(),
-                currentPosition.getY() + vector.getY(),
-                currentPosition.getZ() + vector.getZ()
+            currentPosition.getX() + vector.getX(),
+            currentPosition.getY() + vector.getY(),
+            currentPosition.getZ() + vector.getZ()
         ));
     }
 

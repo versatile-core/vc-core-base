@@ -57,11 +57,11 @@ public class DatabaseManager implements IDatabaseManager {
 
         try {
             connection = getConnWithProps(
-                    config.getOrDefault("hostname", "127.0.0.1"),
-                    config.getOrDefault("port", "3306"),
-                    config.getOrDefault("database", ""),
-                    config.getOrDefault("username", "root"),
-                    config.getOrDefault("password", "")
+                config.getOrDefault("hostname", "127.0.0.1"),
+                config.getOrDefault("port", "3306"),
+                config.getOrDefault("database", ""),
+                config.getOrDefault("username", "root"),
+                config.getOrDefault("password", "")
             );
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -82,19 +82,14 @@ public class DatabaseManager implements IDatabaseManager {
      * @throws SQLException If you could not connect.
      */
     private Connection getConnWithProps(
-            @NotNull
-            String host,
-            @NotNull
-            String port,
-            @NotNull
-            String database,
-            @NotNull
-            String username,
-            @NotNull
-            String password
+        @NotNull String host,
+        @NotNull String port,
+        @NotNull String database,
+        @NotNull String username,
+        @NotNull String password
     ) throws SQLException {
         return DriverManager.getConnection(String.format("jdbc:mysql://%s:%s/%s",
-                host, port, database
+            host, port, database
         ), username, password);
     }
 

@@ -20,9 +20,9 @@ public class SpigotPlayer extends VersatilePlayer<Player> implements ISpigotPlay
      * The player skin.
      */
     @Column(
-            name = "skin",
-            dataType = DataType.INT,
-            foreign = true
+        name = "skin",
+        dataType = DataType.INT,
+        foreign = true
     )
     @NotNull
     private ISkin skin;

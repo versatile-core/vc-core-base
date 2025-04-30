@@ -58,9 +58,9 @@ public class VersatileScoreboard extends Identification implements IScoreboard {
      * @param title The scoreboard title.
      */
     public VersatileScoreboard(
-            @NotNull String scoreboardIdentifier,
-            @NotNull DisplaySlot scoreboardType,
-            @NotNull String title
+        @NotNull String scoreboardIdentifier,
+        @NotNull DisplaySlot scoreboardType,
+        @NotNull String title
     ) {
         super(scoreboardIdentifier);
 

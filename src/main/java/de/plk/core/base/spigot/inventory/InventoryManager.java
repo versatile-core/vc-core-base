@@ -61,9 +61,9 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      */
     @Override
     public IInventory createInventory(
-            @NotNull String inventoryIdentifier,
-            @NotNull String title,
-            int inventorySize
+        @NotNull String inventoryIdentifier,
+        @NotNull String title,
+        int inventorySize
     ) {
         IInventory inventory = new VersatileInventory(inventoryIdentifier);
         inventory.setInventoryTitle(title);
@@ -82,10 +82,10 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
      */
     @Override
     public IInventory createInventory(
-            @NotNull String inventoryIdentifier,
-            @NotNull String title,
-            int inventorySize,
-            boolean fullUnlickable
+        @NotNull String inventoryIdentifier,
+        @NotNull String title,
+        int inventorySize,
+        boolean fullUnlickable
     ) {
         IInventory inventory = createInventory(inventoryIdentifier, title, inventorySize);
 
@@ -142,9 +142,9 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
 
         // Create spigot inventory base.
         Inventory spigotInventory = Bukkit.createInventory(
-                null,
-                inventory.getInventorySize(),
-                inventory.getInventoryTitle()
+            null,
+            inventory.getInventorySize(),
+            inventory.getInventoryTitle()
         );
 
         if (inventory.getInventoryContents().size() > spigotInventory.getSize())
@@ -152,7 +152,7 @@ public class InventoryManager extends Manager<IInventory> implements IInventoryM
 
         // Set items to the inventory.
         inventory.getInventoryContents().forEach((slot, item) ->
-                spigotInventory.setItem(slot, item.getItemStack())
+            spigotInventory.setItem(slot, item.getItemStack())
         );
 
         return spigotInventory;

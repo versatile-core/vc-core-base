@@ -57,8 +57,8 @@ public class ScoreboardManager extends Manager<IScoreboard> implements IScoreboa
         Scoreboard spigotScoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
 
         Objective objective = spigotScoreboard.registerNewObjective(
-                UUID.randomUUID().toString(), Criteria.DUMMY,
-                scoreboard.getScoreboardTitle()
+            UUID.randomUUID().toString(), Criteria.DUMMY,
+            scoreboard.getScoreboardTitle()
         );
 
         objective.setDisplaySlot(scoreboard.getScoreboardType());
@@ -67,8 +67,8 @@ public class ScoreboardManager extends Manager<IScoreboard> implements IScoreboa
         scoreboard.getRows().forEach((position, row) -> {
             if (row instanceof IScoreboardTeam) {
                 objective
-                        .getScore(buildTeam((IScoreboardTeam) row, spigotScoreboard).toString())
-                        .setScore(position);
+                    .getScore(buildTeam((IScoreboardTeam) row, spigotScoreboard).toString())
+                    .setScore(position);
 
             } else objective.getScore(row.getValue()).setScore(position);
         });
@@ -113,9 +113,9 @@ public class ScoreboardManager extends Manager<IScoreboard> implements IScoreboa
      */
     @Override
     public IScoreboard createScoreboard(
-            @NotNull String scoreboardIdentifier,
-            @NotNull DisplaySlot displaySlot,
-            @NotNull String scoreboardTitle
+        @NotNull String scoreboardIdentifier,
+        @NotNull DisplaySlot displaySlot,
+        @NotNull String scoreboardTitle
     ) {
         IScoreboard scoreboard = new VersatileScoreboard(scoreboardIdentifier, displaySlot, scoreboardTitle);
 
